@@ -1,0 +1,23 @@
+{
+  "runId": "synthetic-bounded",
+  "chainId": 50383,
+  "account": "0x1111111111111111111111111111111111111111",
+  "symbol": "ETH",
+  "durationSec": 1800,
+  "closeGraceSec": 120,
+  "pollSec": 5,
+  "entryIntervalSec": 300,
+  "holdSec": 20,
+  "maxCycles": 6,
+  "maxTransactions": 12,
+  "quantity": "0.004",
+  "maxNotional": "150",
+  "maxGasSTT": "0.5",
+  "maxGasPriceGwei": "10",
+  "closeGasReserveSTT": "0.06",
+  "maxSpreadBps": 5,
+  "slippageBps": 10,
+  "participationBps": 2500,
+  "stopEquityDeclineUSDso": "0.25",
+  "minEntryEquityUSDso": "1.5"
+}

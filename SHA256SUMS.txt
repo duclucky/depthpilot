@@ -1,0 +1,4 @@
+17bb8313caf4b75a91c59d04d5590a201fe2ff54e0d821f6b35a4dc26a80e0cf  DepthPilot-0.2.2-windows-x64.zip
+49ffe9f1c22fefb2596074c6b475fcf879fcac84e335b140fd3b0f3d588cd30a  depthpilot-0.2.2-source.zip
+cca11746f4614ef271fd739a23ada28c0a658fb926825b2ac602b174cab9d000  Install-DepthPilot.ps1
+e8dba1e477b674857a92bb9db08da30a35ae8da32a7e477a77b85d3429ed7924  README.md
