@@ -7,9 +7,9 @@ param(
     [switch]$NoShortcut
 )
 $ErrorActionPreference = 'Stop'
-$DepthPilotVersion = '0.2.2'
-$DepthPilotSHA256 = '17bb8313caf4b75a91c59d04d5590a201fe2ff54e0d821f6b35a4dc26a80e0cf'
-$DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.2.2/DepthPilot-0.2.2-windows-x64.zip'
+$DepthPilotVersion = '0.3.0'
+$DepthPilotSHA256 = '45b74ce087d703c3b6753a6dca846fbcd29dc30515fe83846f7834229ec67aef'
+$DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip'
 function Get-DepthPilotSHA256([string]$Path) {
     $DepthPilotStream = [IO.File]::OpenRead($Path)
     $DepthPilotHasher = [Security.Cryptography.SHA256]::Create()
@@ -24,19 +24,19 @@ if ($ArchivePath) {
     $DepthPilotArchive = (Resolve-Path -LiteralPath $ArchivePath).Path
     Write-Host 'Checking your existing DepthPilot download...'
     if ((Get-DepthPilotSHA256 $DepthPilotArchive) -ne $DepthPilotSHA256) {
-        throw 'SHA-256 check failed. Nothing was installed. Download the official Windows 0.2.2 package again.'
+        throw 'SHA-256 check failed. Nothing was installed. Download the official Windows 0.3.0 package again.'
     }
 }
 $DepthPilotWork = Join-Path $DownloadDirectory ($DepthPilotVersion + '-' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $DepthPilotWork | Out-Null
 if (-not $ArchivePath) {
     $DepthPilotArchive = Join-Path $DepthPilotWork 'DepthPilot.zip'
-    Write-Host 'Downloading DepthPilot 0.2.2 from GitHub Releases...'
+    Write-Host 'Downloading DepthPilot 0.3.0 from GitHub Releases...'
     Invoke-WebRequest -UseBasicParsing -Uri $DepthPilotURL -OutFile $DepthPilotArchive
 }
 Write-Host 'Verifying the tested package...'
 if ((Get-DepthPilotSHA256 $DepthPilotArchive) -ne $DepthPilotSHA256) {
-    throw 'SHA-256 check failed. Nothing was installed. Download the official Windows 0.2.2 package again.'
+    throw 'SHA-256 check failed. Nothing was installed. Download the official Windows 0.3.0 package again.'
 }
 Write-Host 'Extracting DepthPilot...'
 Add-Type -AssemblyName System.IO.Compression.FileSystem

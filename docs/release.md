@@ -1,5 +1,11 @@
 # Building a release
 
+## Published 0.3.0 provenance
+
+The v0.3.0 Windows/tested-source ZIPs are the exact verified local candidate archives. They passed 92 tests, responsive and read-only SDK checks and an isolated actual ZIP installation. They are not rebuilt during publication. The GitHub tag/source and standalone README/bootstrap/checksums add final 0.3.0 publication instructions. The extra GitHub download bootstrap/checksum embedded in the frozen candidate still describes 0.2.2; normal ZIP users launch Open DepthPilot.bat or the local install.ps1. The current separately uploaded Install-DepthPilot.ps1 and README command are pinned to the tested 0.3.0 ZIP. CI packaging is a build check and must never replace the published archives.
+
+No new live trade was sent for 0.3.0. Live order evidence remains the separately identified historical 0.2.2 test. Old 0.2.2 release assets stay unchanged. Stop/reconcile and close older running apps before installation; report compatibility is independent of worker recovery.
+
 ## Published 0.2.2 provenance
 
 The GitHub `v0.2.2` runtime and tested-source assets are the immutable archives used in the verified installer/bridge/autonomous round-trip test. Their hashes are in the repository/release `SHA256SUMS.txt`. The repository adds an expanded README, screenshots and a pinned GitHub bootstrap after that runtime test; it does not silently rebuild or replace the Windows archive. The source ZIP retains its original shorter guide. GitHub's automatic tag source contains the documentation/bootstrap additions. Any later runtime build for publication needs a new version; CI packaging is a build smoke check, not an instruction to overwrite a release asset.

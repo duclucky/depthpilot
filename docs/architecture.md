@@ -1,5 +1,15 @@
 # Architecture and integration provenance
 
+## 0.3.0 workbench boundaries
+
+`market-lab.mjs` owns single-flight, short-lived read-only SDK snapshots and passes validated input into the existing integer `planChild` function. Preview does not check account capacity or create an executable plan. Its API is outside the trading-control queue so slow market reads cannot occupy the queue used for stop requests.
+
+`session-library.mjs` reads only exact UUID metadata/state/journal paths under the current profile. It derives allowlisted reports from confirmed receipts, deduplicates hashes, keeps actual gas separate from unresolved reservations, and exposes paginated historical activity without selecting/restarting that run. A report contains no signing material or authority. Missing gas is explicit; saved metrics are not a fresh account observation or PnL.
+
+`plan-template.mjs` validates reusable settings through the existing normalizer using inert validation-only identifiers. Exported settings omit identities, absolute deadlines and authority. Import rejects unknown keys. The UI populates fields but invalidates previous reviews and clears confirmation and recovery opt-in. A new live review still checks the actual account, market and permissions.
+
+`public/workbench.mjs` handles Market/History/settings interactions and inherits the existing design. The original worker, signing adapters, receipt reconciliation and recovery version checks remain unchanged. The candidate uses a new application version; stop/reconcile before installing over an older running app.
+
 The Setup gas helper uses the pinned SDK's native STT bridge from Shannon 50312 to Tokyo 50383 / network ID 50000259, always to the same generated operator. The HTTP process invokes an isolated helper; only its explicitly confirmed send operation unlocks DPAPI. Reviews expire after five minutes, cap origin fees at 0.02 STT and retain 0.01 STT on Shannon. Before broadcasting, it persists the signed transaction hash and exact reviewed fields without persisting the raw signature. Uncertain sends are reconciled, never resent. Arrival requires the exact origin receipt, its DispatchId from the SDK mailbox, the destination delivered flag and expected destination balance. A pending bridge blocks plan activation; an active plan blocks gas moves. All amounts and fees are testnet STT. This optional one-validator test bridge is not a production custody or delivery guarantee.
 
 Node 24 and browser ES modules; no frontend framework, browser wallet provider or key import. The loopback HTTP server handles profile configuration and explicit plan review. A detached worker owns signing, exact intent persistence, SDK submission and receipt reconciliation. Read-only account checks and configuration fields remain available without a wallet extension.

@@ -5,7 +5,7 @@ const root=dirname(dirname(fileURLToPath(import.meta.url))),label=process.env.DE
 const pkg=JSON.parse(await readFile(join(root,'package.json'),'utf8'));if(pkg.version!==APP_VERSION)throw Error('Synchronize the application and package versions first.');
 const stamp=Date.now(),stage=join(root,'.cache',`release-${stamp}`),windows=join(stage,`DepthPilot-${pkg.version}`),source=join(stage,`depthpilot-source-${pkg.version}`);
 await mkdir(windows,{recursive:true});await mkdir(source,{recursive:true});
-const files=['package.json','package-lock.json','.gitignore','README.md','LICENSE','SECURITY.md','CONTRIBUTING.md','Open DepthPilot.bat','install.ps1'];
+const files=['package.json','package-lock.json','.gitignore','README.md','LICENSE','SECURITY.md','CONTRIBUTING.md','Open DepthPilot.bat','install.ps1','Install-DepthPilot.ps1','SHA256SUMS.txt'];
 async function walk(folder,prefix=''){const rows=[];for(const entry of await readdir(folder,{withFileTypes:true})){const name=prefix+entry.name,info=await lstat(join(folder,entry.name));if(info.isSymbolicLink())throw Error('Symbolic links are not supported in a release.');if(info.isDirectory())rows.push(...await walk(join(folder,entry.name),name+'/'));else rows.push(name);}return rows;}
 for(const folder of ['src','public','scripts','docs'])for(const name of await walk(join(root,folder)))files.push(folder+'/'+name);
 for(const file of files){const data=await readFile(join(root,file));if(/C:[\\/]hackathon|BEGIN (?:RSA |EC )?PRIVATE KEY|0x[a-fA-F0-9]{64}["']/i.test(data.toString()))throw Error(`Unexpected private deployment material in ${file}`);for(const target of [windows,source]){await mkdir(dirname(join(target,file)),{recursive:true});await copyFile(join(root,file),join(target,file));}}

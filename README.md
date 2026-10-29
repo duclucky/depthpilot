@@ -1,14 +1,16 @@
 # DepthPilot
 
+> **Version 0.3.0:** explore live market depth, understand the next order, revisit saved-session reports and reuse settings. Stop/reconcile and close an existing DepthPilot app before updating. Your profile stays in place; installing does not start a trading plan.
+
 **A local dreamDEX trading bot. You choose the rules; your dashboard explains every decision.**
 
 DepthPilot runs on your Windows PC and trades **ETH perpetuals on Tokyo testnet** through the official dreamDEX SDK. Create a separate local bot, link its public address on dreamDEX, choose a plan, review the limits, and follow its activity in your browser.
 
-**Start here:** [Download Windows 0.2.2](https://github.com/duclucky/depthpilot/releases/download/v0.2.2/DepthPilot-0.2.2-windows-x64.zip) · [Release and checksums](https://github.com/duclucky/depthpilot/releases/tag/v0.2.2) · [Official Link a Bot guide](https://app.dreamdex.io/docs/trading/common/link-a-bot)
+**Start here:** [Download Windows 0.3.0](https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip) · [Release and checksums](https://github.com/duclucky/depthpilot/releases/tag/v0.3.0) · [Official Link a Bot guide](https://app.dreamdex.io/docs/trading/common/link-a-bot)
 
 You do not paste your main wallet's private key or connect its extension to DepthPilot. Your main wallet stays on dreamDEX. DepthPilot creates a different signing key on your PC, protected by Windows, and uses the trading access you explicitly grant it.
 
-![DepthPilot local dashboard](docs/images/overview.jpg)
+![DepthPilot live market workbench](docs/images/market-030.png)
 
 ## Contents
 
@@ -26,6 +28,26 @@ You do not paste your main wallet's private key or connect its extension to Dept
 12. [What was verified](#12-what-was-verified)
 13. [Limits and key protection](#13-limits-and-key-protection)
 14. [For developers](#14-for-developers)
+
+## New in 0.3.0
+
+### See the market before setting up a bot
+
+Open **Market** to read ETH-PERP depth on Tokyo through the Markets SDK and a block-pinned order book. It shows best offers, spread, market minimum/step and freshness. No key or account is needed. Enter a total amount and per-order limit, then choose **Preview the next order**. The same integer planner used by the execution bot applies the price bound, spread, minimum/step and 25% depth participation rules.
+
+A successful preview shows the estimated next child, average price and sizing constraint. A blocked preview explains the wait. It is one snapshot, not a backtest, fill promise, capacity check or trading recommendation. **Use these inputs in a plan** copies inputs only; choose budgets, finish account setup and review before anything can trade. RPC errors mark the market unavailable; stale blocks do not become fresh merely because a response arrived recently.
+
+### Learn from saved sessions
+
+Open **History** to revisit past plans, including compatible 0.2.2 history. Reports show confirmed buy/sell volume and average prices, fill rate, actual recorded gas, outstanding fee reservations, pending hashes and receipt links. Target plans also show completion and signed arrival slippage; positive means worse than the arrival reference. Gas and funding are separate, and these measures are **not PnL**. Missing gas is marked incomplete. Unconfirmed or reverted orders never become successful fills.
+
+The saved journal is paginated and remains attached to its original session. **Export report** downloads a readable Markdown report without wallet addresses, keys, calldata or authority. Public transaction links can still reveal accounts on an explorer. A report is a saved record, not a new onchain check or proof that a stopped account is flat.
+
+### Reuse settings, never permission
+
+In **Create a plan**, choose **One small round** as an editable test starting point, or **Save settings / Load settings** to reuse a small JSON settings file. History offers **Use this plan again** and **Export settings**. Settings contain only validated Tokyo plan inputs. They exclude identities, absolute deadlines, keys, recovery opt-in and trading authority. Imports reject unexpected fields and unsupported versions. Every reuse becomes an unapproved draft requiring a fresh account/market review and explicit confirmation.
+
+Version 0.3.0 retains the extension-free Link a Bot setup and the hidden Windows launcher. It adds no dependencies, changes no signing/reconciliation logic, starts no plan on installation, and includes no author's profile/history. The original 0.2.2 live evidence below remains historical evidence; it is not a new 0.3.0 live trading test.
 
 ## 1. What the bot does
 
@@ -53,13 +75,13 @@ You do **not** need administrator access, a system Node/npm installation, a clou
 
 ## 3. Install on Windows
 
-Choose **one** method. Both use the same tested 0.2.2 Windows package.
+Choose **one** method. Both use the same tested 0.3.0 Windows package. For an update, stop/reconcile your current plan and use **Close local app** first.
 
 ### Option A — download and double-click
 
-1. Download [DepthPilot-0.2.2-windows-x64.zip](https://github.com/duclucky/depthpilot/releases/download/v0.2.2/DepthPilot-0.2.2-windows-x64.zip). Choose this Windows asset, not GitHub's automatic “Source code” download.
+1. Download [DepthPilot-0.3.0-windows-x64.zip](https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip). Choose this Windows asset, not GitHub's automatic “Source code” download.
 2. Extract the **whole folder** into a location you control. Do not run a file from inside the ZIP.
-3. Open the extracted `DepthPilot-0.2.2` folder.
+3. Open the extracted `DepthPilot-0.3.0` folder.
 4. Double-click **Open DepthPilot.bat**.
 5. Your browser opens the local dashboard automatically. A batch window may flash briefly; no terminal needs to remain open for the application.
 
@@ -72,12 +94,12 @@ Open **ordinary PowerShell as your normal Windows user**, copy this whole block,
 ```powershell
 & {
     $ErrorActionPreference = 'Stop'
-    $DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.2.2/DepthPilot-0.2.2-windows-x64.zip'
-    $DepthPilotSHA256 = '17bb8313caf4b75a91c59d04d5590a201fe2ff54e0d821f6b35a4dc26a80e0cf'
-    $DepthPilotFolder = Join-Path $env:LOCALAPPDATA ('DepthPilot\downloads\0.2.2-' + [Guid]::NewGuid().ToString('N'))
+    $DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip'
+    $DepthPilotSHA256 = '45b74ce087d703c3b6753a6dca846fbcd29dc30515fe83846f7834229ec67aef'
+    $DepthPilotFolder = Join-Path $env:LOCALAPPDATA ('DepthPilot\downloads\0.3.0-' + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $DepthPilotFolder | Out-Null
     $DepthPilotZIP = Join-Path $DepthPilotFolder 'DepthPilot.zip'
-    Write-Host 'Downloading and checking DepthPilot 0.2.2...'
+    Write-Host 'Downloading and checking DepthPilot 0.3.0...'
     Invoke-WebRequest -UseBasicParsing -Uri $DepthPilotURL -OutFile $DepthPilotZIP
     $DepthPilotStream = [IO.File]::OpenRead($DepthPilotZIP)
     $DepthPilotHasher = [Security.Cryptography.SHA256]::Create()
@@ -86,7 +108,7 @@ Open **ordinary PowerShell as your normal Windows user**, copy this whole block,
     if ($DepthPilotActual -ne $DepthPilotSHA256) { throw 'SHA-256 check failed. Nothing was installed.' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [IO.Compression.ZipFile]::ExtractToDirectory($DepthPilotZIP, $DepthPilotFolder)
-    $DepthPilotApp = Join-Path $DepthPilotFolder 'DepthPilot-0.2.2'
+    $DepthPilotApp = Join-Path $DepthPilotFolder 'DepthPilot-0.3.0'
     & (Join-Path $DepthPilotApp 'runtime\node.exe') (Join-Path $DepthPilotApp 'scripts\install.mjs')
     if ($LASTEXITCODE -ne 0) { throw 'Installation did not finish. Stop and close an existing DepthPilot app before trying again.' }
 }
@@ -97,7 +119,7 @@ The block runs the verified ZIP's installer. It does not download/evaluate a rem
 The expected Windows ZIP SHA-256 is:
 
 ```text
-17bb8313caf4b75a91c59d04d5590a201fe2ff54e0d821f6b35a4dc26a80e0cf
+45b74ce087d703c3b6753a6dca846fbcd29dc30515fe83846f7834229ec67aef
 ```
 
 This release is not code-signed. The hash verifies integrity against this project's published value; it does not substitute for trusting the project and release channel.
@@ -109,7 +131,7 @@ The app listens only on `127.0.0.1`. It tries port 4320, then chooses an availab
 | Location | Purpose |
 | --- | --- |
 | `%LOCALAPPDATA%\DepthPilot\app` | Persistent installation, stable batch launcher and version selector. |
-| `%LOCALAPPDATA%\DepthPilot\app\versions\0.2.2` | This version's app and bundled Node runtime. |
+| `%LOCALAPPDATA%\DepthPilot\app\versions\0.3.0` | This version's app and bundled Node runtime. |
 | `%LOCALAPPDATA%\DepthPilot\profiles\default` | Protected bot key, account, plans, counters and journal. **Keep private.** |
 | `%LOCALAPPDATA%\DepthPilot\downloads` | Downloads/extracted packages from the PowerShell method. |
 
@@ -232,7 +254,7 @@ Stopping does not revoke the onchain Perps grant. To remove it, use dreamDEX's b
 - **Keep identity/history:** reopening preserves the bot, owner, plans and cumulative usage. It does not renew budgets.
 - **After Windows restart:** launch DepthPilot yourself; automatic login startup is not installed. Recovery only applies to an opted-in active plan with the same valid remaining authority. Deliberate stops, halted/completed scopes and revoked local authorities do not get rearmed.
 - **Update:** stop/reconcile, check the actual position, then **Close local app**. Install a new verified release. Versions are separate; the profile stays in place. Installation refuses while the app is still running.
-- **Reinstall the same version:** an identical version can be reused after closing the app. Different contents using the same version are rejected. The tested 0.2.2 Windows ZIP is immutable.
+- **Reinstall the same version:** an identical version can be reused after closing the app. Different contents using the same version are rejected. Published Windows ZIPs are immutable; different contents need a different version.
 
 DPAPI is tied to your Windows user. Copying an encrypted profile to another PC/user is not supported key migration. There is no built-in cross-PC recovery, automatic updater, tray app or one-click uninstaller. Keep your profile private and do not discard it casually.
 
@@ -261,7 +283,9 @@ For ordinary bugs, open a [GitHub issue](https://github.com/duclucky/depthpilot/
 
 ## 12. What was verified
 
-The **same Windows ZIP linked above** was installed and used with a new local operator. Setup inputs came from the UI. After one reviewed activation, the bot independently chose and sent its entry/exit.
+**0.3.0 verification:** 92 tests passed in the working source and in the extracted tested-source ZIP, with no failures/skips. Twenty responsive checks covered 320/390/768/1440 px. The actual Windows ZIP was installed into an isolated profile; its bundled runtime, hidden launcher, batch reopen without a duplicate instance, empty identity/history and live read-only market were verified. History reproduced the earlier real 0.2.2 receipts and all 31 saved events. Settings import/export/reuse and Markdown report export were checked. No new live order was sent for this UI/reporting upgrade.
+
+**Historical 0.2.2 live verification:** that version was installed and used with a new local operator. Setup inputs came from the UI. After one reviewed activation, the bot independently chose and sent its entry/exit. The following results belong to that bounded historical test:
 
 | Check | Result |
 | --- | --- |
@@ -278,7 +302,7 @@ Public evidence: [bridge](https://shannon-explorer.somnia.network/tx/0xefd721fbb
 
 This was a fresh DepthPilot profile under the same Windows user, with an already authenticated dreamDEX session. It does not establish a fresh Windows user/PC, 24/7 uptime, profitability or a live finite-target run. No author's wallet, authority, receipt archive or active plan is preloaded into an installation.
 
-The runtime ZIP and matching tested-source ZIP remain exactly as tested. This repository adds the expanded guide and GitHub bootstrap afterward. The README inside the immutable ZIP is the earlier short guide; this page is the current walkthrough.
+The 0.3.0 runtime and tested-source ZIPs are the unchanged, verified local candidate snapshots. This repository and the separately uploaded README/bootstrap add the final 0.3.0 publication instructions afterward. Use this page for the current download command. Inside the ZIP, use **Open DepthPilot.bat** or the local **install.ps1**. The extra **Install-DepthPilot.ps1** and checksum file embedded in that frozen snapshot refer to the older 0.2.2 GitHub download; use the current standalone release asset if you need the GitHub bootstrap.
 
 ## 13. Limits and key protection
 
