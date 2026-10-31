@@ -49,7 +49,7 @@ export class BotRunner {
     if(!this.live){if(!c.continuous){this.event('read-only-candidate',{action:decision.action,quantity:order.quantity,notional:order.notional,gasCeiling:order.gasCeiling});await this.save();}return {action:'preview',reason:decision.reason,quantity:order.quantity,price:order.price,expectedAveragePrice:order.expectedAveragePrice,notional:order.notional,gasCeiling:order.gasCeiling};}
     const authority=await this.authority();authorizeBot(c,authority,this.digest,this.now());
     const totals=botTotals(s),notional=BigInt(order.notional),gas=BigInt(order.gasCeiling),reserve=decision.action==='open'?parseExact(c.closeGasReserveSTT,18):0n;
-    if(gas<=0n||notional<=0n||totals.gas+gas+reserve>parseExact(c.maxGasSTT,18)||totals.notional+notional*(decision.action==='open'?21n:10n)/10n>parseExact(c.maxNotional,18)||s.orders.length+(decision.action==='open'?2:1)>c.maxTransactions){
+    if(gas<=0n||notional<=0n||totals.gas+gas+reserve>parseExact(c.maxGasSTT,18)||totals.notional+notional*(decision.action==='open'?21n:10n)/10n>parseExact(c.maxNotional,18)||s.orders.length+(decision.action==='open'?1+(c.closeOrderSlots??1):1)>c.maxTransactions){
       this.event('candidate-blocked',{reason:'estimated-budget'});await this.save();return {action:'wait',reason:'estimated-budget'};
     }
     if(c.continuous&&await this.shouldStop())s.stopRequested=true;
@@ -91,7 +91,7 @@ export class BotRunner {
       if(!s.cycle||filled>BigInt(s.cycle.quantity))throw Error('Closing fills exceed owned exposure');
       const remaining=BigInt(s.cycle.quantity)-filled;
       if(remaining===0n){s.cycle=null;s.exitDeadline=null;s.cycles++;s.status='observing';}
-      else{s.cycle.quantity=String(remaining);s.status='holding';}
+      else{s.cycle.quantity=String(remaining);s.status='holding';this.event('partial-close',{hash:entry.hash,filled:String(filled),remaining:String(remaining),reason:'closing-remainder'});}
     }
     s.pending=null;this.event('receipt',{hash:entry.hash,action:entry.action,status:receipt.status,filled:entry.filled});
     // Saving the product journal first leaves the durable pending hash recoverable if interrupted.

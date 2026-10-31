@@ -1,9 +1,14 @@
 import {randomUUID,createHash} from 'node:crypto';import {spawn,execFile} from 'node:child_process';import {promisify} from 'node:util';
 import {open,unlink} from 'node:fs/promises';import {join,dirname} from 'node:path';import {fileURLToPath} from 'node:url';
 import {readJSON,writeJSON,initializeHome,isAlive,APP_VERSION} from './runtime.mjs';
-import {normalizePlan} from './plan-config.mjs';import {checkAccount} from './account-check.mjs';import {createPlan,parseExact} from './core.mjs';
+import {normalizePlan} from './plan-config.mjs';import {checkAccount} from './account-check.mjs';import {createPlan,parseExact,formatExact} from './core.mjs';
 import {botConfigDigest} from './bot-runner.mjs';import {executionDigest} from './execution-runner.mjs';import {readSegmentedLog} from './segmented-log.mjs';
 const exec=promisify(execFile),root=dirname(dirname(fileURLToPath(import.meta.url)));
+function checkPlanReserve(draft,account){
+  if(draft.kind!=='roundtrip')return;
+  const required=parseExact(draft.config.closeGasReserveSTT,18)*2n+parseExact(draft.config.minNativeReserveSTT,18);
+  if(BigInt(account.gas)<required)throw Error(`This plan needs at least ${formatExact(required,18)} STT at the bot address for entry, closing fees and its untouched reserve. Add Tokyo gas or choose a smaller fee budget.`);
+}
 export class LocalService{
   constructor(home,gateway,gasBridge){this.home=home;this.gateway=gateway;this.reviews=new Map();this.gasBridge=gasBridge||{status:()=>this.gasHelper('status'),quote:()=>this.gasHelper('quote'),send:(id,confirmed)=>this.gasHelper('send',id,confirmed)};}
   async gasHelper(action,id,confirmed){
@@ -40,6 +45,7 @@ export class LocalService{
     const draft=normalizePlan(input,{owner:profile.owner,operator:wallet.address});
     const account=await checkAccount(this.gateway,profile.owner,wallet.address);
     if(!account.ready)throw Error(account.blockers.map(x=>x.text).join(' '));
+    checkPlanReserve(draft,account);
     const {market,snapshot}=await this.gateway.snapshot('ETH');
     const quantity=parseExact(draft.quantity,18),lot=BigInt(market.lotSize);
     if(quantity<BigInt(market.minQuantity)||quantity%lot!==0n)throw Error('This ETH amount does not match the market minimum or step. Try the suggested market amount.');
@@ -63,6 +69,7 @@ export class LocalService{
     if(profile.owner!==review.account.owner||wallet?.address!==review.account.operator)throw Error('Your account changed. Review the plan again.');
     const account=await checkAccount(this.gateway,profile.owner,wallet.address);if(!account.ready)throw Error(account.blockers.map(x=>x.text).join(' '));
     const {draft}=review;
+    checkPlanReserve(draft,account);
     if(draft.plan&&draft.plan.deadline-Date.now()<30000)throw Error('Review this time-limited plan again before starting.');
     const authority={userAuthorization:'User explicitly reviewed and activated this exact local plan in DepthPilot',version:APP_VERSION,approvedAt:new Date().toISOString(),revoked:false,...(draft.kind==='roundtrip'?{configDigest:botConfigDigest(draft.config),untilStopped:true}:{runId:draft.id,planDigest:executionDigest(draft.plan),chainId:50383,expiresAt:new Date(draft.plan.deadline).toISOString(),maxOrders:draft.maxOrders,maxGasSTT:draft.maxGas,maxNotionalUSDso:draft.maxNotional,maxGasPriceGwei:'10'})};
     await writeJSON(this.path(`authority-${draft.id}.json`),authority);

@@ -14,6 +14,7 @@ export function validateBotConfig(c) {
     if(!Number.isInteger(c[key])||c[key]<min||c[key]>max)throw Error(`Invalid bot ${key}`);
   }
   if(c.maxTransactions<c.maxCycles*2||c.entryIntervalSec<=c.holdSec)throw Error('Entry/exit slots or timing invalid');
+  if(c.closeOrderSlots!==undefined&&(!Number.isInteger(c.closeOrderSlots)||c.closeOrderSlots<1||c.closeOrderSlots>3))throw Error('Invalid closing order slots');
   for(const [key,max] of [['quantity','0.004'],['maxNotional',continuous?'6000':'150'],['maxGasSTT',continuous?'6':'0.5'],['maxGasPriceGwei','10'],['closeGasReserveSTT','0.5'],['stopEquityDeclineUSDso','0.25'],['minEntryEquityUSDso','1.77736']])if(raw(c[key])<=0n||raw(c[key])>raw(max))throw Error(`Invalid bot ${key}`);
   if(continuous&&(raw(c.minNativeReserveSTT)<raw('1')||raw(c.minNativeReserveSTT)>raw('8')))throw Error('Invalid native reserve');
   if(raw(c.closeGasReserveSTT)*2n>raw(c.maxGasSTT))throw Error('Insufficient opening and closing gas reserves');
@@ -51,7 +52,7 @@ export function decideBot(c,s,o,now=Date.now()) {
   if(quantity<BigInt(o.minQuantity)||lot<=0n||quantity%lot!==0n)return answer('halt','market-quantity-changed');
   if(s.lastEntryAt!==undefined&&now-s.lastEntryAt<c.entryIntervalSec*1000)return answer('wait','entry-cooldown');
   const {gas,notional}=botTotals(s),entryNotional=quantity*(ask*(10000n+BigInt(c.slippageBps))/10000n)/10n**18n;
-  if(s.orders.length+2>c.maxTransactions||notional+entryNotional*21n/10n>raw(c.maxNotional)||gas+raw(c.closeGasReserveSTT)*2n>raw(c.maxGasSTT)||BigInt(o.gasBalance)<raw(c.closeGasReserveSTT)*2n+raw(c.minNativeReserveSTT||'0'))return finish('entry-exit-budget');
+  if(s.orders.length+1+(c.closeOrderSlots??1)>c.maxTransactions||notional+entryNotional*21n/10n>raw(c.maxNotional)||gas+raw(c.closeGasReserveSTT)*2n>raw(c.maxGasSTT)||BigInt(o.gasBalance)<raw(c.closeGasReserveSTT)*2n+raw(c.minNativeReserveSTT||'0'))return finish('entry-exit-budget');
   return answer('open','fresh-tight-book');
 }
 export function authorizeBot(config,authority,digest,now=Date.now()) {

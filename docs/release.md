@@ -1,5 +1,11 @@
 # Building a release
 
+## Source 0.3.1 and local installer candidate
+
+The 0.3.1 source is published on `main`. The verified local Windows/source candidate ZIPs are not GitHub Release assets yet. Their SHA-256 values are `43c5763388849d289663062f1887aee540f76e584e5e339f7f93ebca7bf0c431` and `74042088bcdf6d02434bb729bcc7c85874c1a59e6ed4395658dcd20f090d5030`, respectively. Preserve those exact archives. Repository documentation and the captioned demo were added for source publication after candidate packaging; the Windows/source ZIPs remain their verified snapshots. The installer bootstrap and stable download links continue to target published 0.3.0.
+
+Candidate verification includes 100 passing tests in both the working tree and extracted source package, manifest hashes, isolated Windows install/batch reopen, real read-only Tokyo market data, responsive review and historical report export. The 84-second demo explicitly separates real read-only data, disabled synthetic setup and historical 0.2.2 receipts. No new 0.3.1 live trade is established by those checks. Existing profiles are preserved; a completed old plan is never rearmed merely by installing this version.
+
 ## Published 0.3.0 provenance
 
 The v0.3.0 Windows/tested-source ZIPs are the exact verified local candidate archives. They passed 92 tests, responsive and read-only SDK checks and an isolated actual ZIP installation. They are not rebuilt during publication. The GitHub tag/source and standalone README/bootstrap/checksums add final 0.3.0 publication instructions. The extra GitHub download bootstrap/checksum embedded in the frozen candidate still describes 0.2.2; normal ZIP users launch Open DepthPilot.bat or the local install.ps1. The current separately uploaded Install-DepthPilot.ps1 and README command are pinned to the tested 0.3.0 ZIP. CI packaging is a build check and must never replace the published archives.

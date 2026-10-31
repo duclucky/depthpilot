@@ -17,7 +17,7 @@ export function validateExecutionPolicy(policy) {
   if (!policy || !Number.isInteger(policy.maxSpreadBps) || policy.maxSpreadBps < 1 || policy.maxSpreadBps > 1000 || !Number.isInteger(policy.maxSlippageBps) || policy.maxSlippageBps < 0 || policy.maxSlippageBps > 1000 || !Number.isInteger(policy.minIntervalSec) || policy.minIntervalSec < 1 || policy.minIntervalSec > 3600) throw Error('Invalid execution policy');
   return { maxSpreadBps: policy.maxSpreadBps, maxSlippageBps: policy.maxSlippageBps, minIntervalSec: policy.minIntervalSec };
 }
-export function planChild({ market, snapshot, side, bound, remaining, maxChild, participationBps = 2500, now = Date.now(), deadline, maxAgeMs = 15000, capacity, executionPolicy, arrivalPrice, receipts = [], pending }) {
+export function planChild({ market, snapshot, side, bound, remaining, maxChild, participationBps = 2500, now = Date.now(), deadline, maxAgeMs = 15000, capacity, executionPolicy, arrivalPrice, receipts = [], pending, closingPositionSize }) {
   const constraints = {};
   const pause = (reason, extra = {}) => ({ executable: false, reason, quantity: '0', constraints, ...extra });
   if (executionPolicy) validateExecutionPolicy(executionPolicy);
@@ -29,6 +29,16 @@ export function planChild({ market, snapshot, side, bound, remaining, maxChild, 
   if (BigInt(remaining) <= 0n) return pause('completed');
   const tick = BigInt(market.tickSize), lot = BigInt(market.lotSize), minimum = BigInt(market.minQuantity);
   if (tick <= 0n || lot <= 0n || minimum <= 0n) throw new Error('Invalid market grid');
+  // A subminimum order is legal only when it closes the exact current position.
+  // This context is supplied by the owned-cycle adapter, never by imported settings.
+  const closing = closingPositionSize !== undefined;
+  const position = closing ? BigInt(closingPositionSize) : 0n;
+  const positionQuantity = position < 0n ? -position : position;
+  if (closing) {
+    if (position === 0n || (position > 0n ? side !== 'sell' : side !== 'buy') || BigInt(remaining) !== positionQuantity) return pause('closing-position-mismatch');
+    if (positionQuantity % lot !== 0n) return pause('closing-position-off-lot');
+    if (!capacity) return pause('closing-account-required');
+  }
   if (!Number.isInteger(participationBps) || participationBps < 1 || participationBps > 10000) throw new Error('Invalid depth participation');
   let raw = BigInt(bound);
   if (executionPolicy) {
@@ -47,7 +57,8 @@ export function planChild({ market, snapshot, side, bound, remaining, maxChild, 
   const price = side === 'buy' ? raw / tick * tick : (raw + tick - 1n) / tick * tick;
   if (price <= 0n) return pause('invalid-price');
   if (capacity && !capacity.priceable) return pause('stale-mark');
-  if (capacity && !capacity.placeable) return pause(capacity.limitedBy || 'account-blocked');
+  const minimumExempt = closing && positionQuantity < minimum && BigInt(capacity.maxQuantity) >= positionQuantity;
+  if (capacity && !capacity.placeable && !minimumExempt) return pause(capacity.limitedBy || 'account-blocked');
   const levels = (side === 'buy' ? snapshot.asks : snapshot.bids)
     .map(x => ({ price: BigInt(x.price), quantity: BigInt(x.quantity) }))
     .filter(x => x.price > 0n && x.quantity > 0n && (side === 'buy' ? x.price <= price : x.price >= price))
@@ -65,7 +76,7 @@ export function planChild({ market, snapshot, side, bound, remaining, maxChild, 
     quantity = (BigInt(remaining) - minimum) / lot * lot;
     limitingFactors.push('tradable-remainder');
   }
-  if (quantity < minimum) return pause('below-minimum');
+  if (quantity < minimum && !(minimumExempt && quantity === positionQuantity)) return pause('below-minimum');
   let left = quantity, numerator = 0n;
   const usedLevels = [];
   for (const l of levels) {
@@ -73,7 +84,7 @@ export function planChild({ market, snapshot, side, bound, remaining, maxChild, 
     numerator += take * l.price; left -= take;
     usedLevels.push({ price: String(l.price), quantity: String(take) });
   }
-  return { executable: true, reason: 'ready', price: String(price), quantity: String(quantity), depthQuantity: String(depth), expectedAveragePrice: String(numerator / quantity), expectedNotional: String(numerator / 10n ** BigInt(market.baseDecimals)), usedLevels, constraints, limitingFactors, accountChecked: Boolean(capacity), observedAt: snapshot.observedAt, blockNumber: snapshot.blockNumber };
+  return { executable: true, reason: 'ready', price: String(price), quantity: String(quantity), ...(closing ? { closingPositionSize: String(position) } : {}), depthQuantity: String(depth), expectedAveragePrice: String(numerator / quantity), expectedNotional: String(numerator / 10n ** BigInt(market.baseDecimals)), usedLevels, constraints, limitingFactors, accountChecked: Boolean(capacity), observedAt: snapshot.observedAt, blockNumber: snapshot.blockNumber };
 }
 export function createPlan({ id, target, side, bound, now = Date.now(), durationSec = 600, ...rest }) {
   if (rest.executionPolicy) rest.executionPolicy = validateExecutionPolicy(rest.executionPolicy);

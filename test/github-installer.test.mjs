@@ -10,8 +10,9 @@ test('PowerShell bootstrap rejects a missing offline archive without touching de
  const result=spawnSync('powershell.exe',['-NoProfile','-NonInteractive','-File',join(root,'Install-DepthPilot.ps1'),'-ArchivePath',join(home,'missing.zip'),'-Destination',destination,'-NoLaunch','-NoShortcut'],{encoding:'utf8',windowsHide:true,timeout:20000});
  assert.notEqual(result.status,0);await assert.rejects(access(destination));
 });
-test('README and saved bootstrap pin the published Windows archive checksum and URL',async()=>{
- const {version}=JSON.parse(await readFile(join(root,'package.json'),'utf8'));
+test('README and saved bootstrap pin the same immutable published archive independently of a local candidate version',async()=>{
+ const bootstrap=await readFile(join(root,'Install-DepthPilot.ps1'),'utf8');
+ const version=bootstrap.match(/\$DepthPilotVersion = '(\d+\.\d+\.\d+)'/)?.[1];assert.ok(version);
  const sums=await readFile(join(root,'SHA256SUMS.txt'),'utf8'),expected=sums.split(/\r?\n/).find(x=>x.endsWith(`  DepthPilot-${version}-windows-x64.zip`))?.split(/\s+/)[0];assert.match(expected,/^[a-f0-9]{64}$/);
  for(const file of ['README.md','Install-DepthPilot.ps1']){const body=await readFile(join(root,file),'utf8');assert.equal(body.match(/\$DepthPilotSHA256 = '([a-f0-9]{64})'/)?.[1],expected);assert.ok(body.includes(`https://github.com/duclucky/depthpilot/releases/download/v${version}/DepthPilot-${version}-windows-x64.zip`));assert.doesNotMatch(body,/ExecutionPolicy\s+Bypass|Invoke-Expression/);}
 });

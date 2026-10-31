@@ -1,5 +1,5 @@
 import { TokyoBotGateway } from './bot-gateway.mjs';
-import { planChild } from './core.mjs';
+import { planChild, parseExact } from './core.mjs';
 import { assertDelegatedOrder } from './delegation.mjs';
 
 // Reuse the verified operator signer and exact-receipt adapter; replace the round-trip policy only.
@@ -19,7 +19,8 @@ export class ExecutionGateway {
     if(!child.executable)throw Error(`Planner paused: ${child.reason}`);
     if(plan.operator){const rights=await this.gateway.operatorPermissions(plan.market.poolAddress,plan.account,plan.operator);if(!rights.place||!rights.cancel||!rights.reduce)throw Error('Operator permission missing');}
     const unsigned=await this.gateway.unsigned(plan,child),fees=await this.gateway.browserFees(plan,unsigned);
-    await this.gateway.simulate(plan,unsigned);
+    if(BigInt(fees.balance)-BigInt(fees.gasLimit)*BigInt(fees.gasPrice)<parseExact('1',18))throw Error('This order would use the 1 STT reserve. Add Tokyo gas or lower the plan.');
+    await this.gateway.simulate(plan,unsigned,BigInt(fees.gasLimit));
     if(await this.gateway.rpc.getTransactionCount({address:plan.operator||plan.account,blockTag:'latest'})!==fees.nonce)throw Error('Unresolved operator nonce');
     return {...child,plan,unsigned,nonce:fees.nonce,gasPrice:fees.gasPrice,gasLimit:fees.gasLimit,gasCeiling:String(BigInt(fees.gasLimit)*BigInt(fees.gasPrice))};
   }

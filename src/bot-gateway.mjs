@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { keccak256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { Gateway, json } from './gateway.mjs';
+import { Gateway, json, MAX_ORDER_GAS } from './gateway.mjs';
 import { createPlan, planChild, parseExact } from './core.mjs';
 import { decideBot } from './autopilot-policy.mjs';
 import { botIdentity, assertDelegatedOrder } from './delegation.mjs';
@@ -13,7 +13,7 @@ function blocked(reason){throw Object.assign(Error(reason),{botBlocked:true});}
 export function botGasEnvelope(fees,config,action){
   const original=BigInt(fees.gasLimit),price=BigInt(fees.gasPrice);
   if(original<=0n||price<=0n)blocked('invalid-gas-envelope');
-  let cap=10000000n;
+  let cap=MAX_ORDER_GAS;
   if(action==='close'){const reserveCap=parseExact(config.closeGasReserveSTT,18)/price;if(reserveCap<cap)cap=reserveCap;}
   if(original>cap)blocked('estimated-gas-exceeds-close-reserve');
   const buffered=original*2n;return {...fees,gasLimit:String(buffered<cap?buffered:cap)};
@@ -43,9 +43,9 @@ export class TokyoBotGateway {
     const deadline=state.exitDeadline||state.hardDeadline;
     const durationSec=deadline===null?60:Math.min(60,Math.floor((deadline-Date.now())/1000));
     if(durationSec<30)blocked('closing-window-ending');
-    const plan=createPlan({id:`bot-${c.runId}-${state.orders.length+1}`,source:'live',symbol:c.symbol,market,account:c.account,...(c.operator?{operator:c.operator}:{}),accountSource:c.operator?'linked-bot':'local-bot',side,target:quantity,bound:String(bound),maxChild:quantity,participationBps:c.participationBps,durationSec});
+    const plan=createPlan({id:`bot-${c.runId}-${state.orders.length+1}`,source:'live',symbol:c.symbol,market,account:c.account,...(c.operator?{operator:c.operator}:{}),...(action==='close'?{closingPositionSize:observation.position}:{}),accountSource:c.operator?'linked-bot':'local-bot',side,target:quantity,bound:String(bound),maxChild:quantity,participationBps:c.participationBps,durationSec});
     const child=planChild({...plan,market,snapshot,capacity:account.capacity});
-    if(!child.executable||child.quantity!==quantity)blocked(`planner-${child.reason}-${child.quantity}`);
+    if(!child.executable||(action==='open'&&child.quantity!==quantity))blocked(`planner-${child.reason}-${child.quantity}`);
     const unsigned=await g.unsigned(plan,child),fees=botGasEnvelope(await g.browserFees(plan,unsigned),c,action);
     if(BigInt(fees.gasPrice)>parseExact(c.maxGasPriceGwei,9))blocked('gas-price-above-cap');
     const nonce=await g.rpc.getTransactionCount({address:c.operator||c.account,blockTag:'latest'});
@@ -54,9 +54,17 @@ export class TokyoBotGateway {
     if(c.continuous&&BigInt(observation.gasBalance)-gasLimit*gasPrice<parseExact(c.minNativeReserveSTT,18))blocked('native-reserve');
     await g.rpc.call({account:c.operator||c.account,to:unsigned.to,data:unsigned.data,value:0n,gas:gasLimit,gasPrice});
     if(Date.now()-snapshot.observedAt>15000)blocked('candidate-became-stale');
-    return JSON.parse(json({action,quantity:child.quantity,price:child.price,notional:BigInt(quantity)*BigInt(child.price)/10n**18n,expectedAveragePrice:child.expectedAveragePrice,previewAt:snapshot.observedAt,observation,plan,unsigned,nonce,gasLimit,gasPrice,gasCeiling:gasLimit*gasPrice}));
+    return JSON.parse(json({action,quantity:child.quantity,price:child.price,notional:BigInt(child.quantity)*BigInt(child.price)/10n**18n,expectedAveragePrice:child.expectedAveragePrice,previewAt:snapshot.observedAt,observation,plan,unsigned,nonce,gasLimit,gasPrice,gasCeiling:gasLimit*gasPrice}));
   }
   async sign(order){
+    if(order.plan.closingPositionSize!==undefined){
+      const [position,orders]=await Promise.all([
+        this.gateway.sdk.client.getPerpPosition({marginBank:order.plan.market.marginBank,pool:order.plan.market.poolAddress,account:order.plan.account}),
+        this.gateway.sdk.client.getOwnOpenOrdersOnchain(order.plan.market.poolAddress,order.plan.account),
+      ]);
+      const expected=BigInt(order.plan.closingPositionSize),quantity=BigInt(order.quantity),absolute=expected<0n?-expected:expected;
+      if(position.size!==expected||orders.length||quantity<=0n||quantity>absolute||(expected>0n?order.plan.side!=='sell':order.plan.side!=='buy'))blocked('closing position changed; reconcile before signing');
+    }
     if(this.config.operator){
       const encoded=assertDelegatedOrder(order.plan,order.unsigned);
       if(encoded.quantity!==BigInt(order.quantity)||encoded.price!==BigInt(order.price))throw Error('Delegated candidate encoding differs from reviewed quantity or price');

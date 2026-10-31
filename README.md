@@ -1,5 +1,7 @@
 # DepthPilot
 
+> **Source 0.3.1 / installer candidate:** improves owned residual closes and bounded gas headroom. The source is available on `main`; the verified 0.3.1 Windows ZIP has not been uploaded to GitHub Releases. Use its supplied local ZIP and **Open DepthPilot.bat** for candidate review. The download links and PowerShell block below install the current published **0.3.0** Windows release.
+
 > **Version 0.3.0:** explore live market depth, understand the next order, revisit saved-session reports and reuse settings. Stop/reconcile and close an existing DepthPilot app before updating. Your profile stays in place; installing does not start a trading plan.
 
 **A local dreamDEX trading bot. You choose the rules; your dashboard explains every decision.**
@@ -11,6 +13,8 @@ DepthPilot runs on your Windows PC and trades **ETH perpetuals on Tokyo testnet*
 You do not paste your main wallet's private key or connect its extension to DepthPilot. Your main wallet stays on dreamDEX. DepthPilot creates a different signing key on your PC, protected by Windows, and uses the trading access you explicitly grant it.
 
 ![DepthPilot live market workbench](docs/images/market-030.png)
+
+[Watch the 84-second 0.3.1 walkthrough](docs/demo-0.3.1.mp4): actual UI captures labelled as real Tokyo read-only data, synthetic setup with trading disabled, and historical 0.2.2 receipts. It is an edited captioned walkthrough, not a new live trading run.
 
 ## Contents
 
@@ -28,6 +32,15 @@ You do not paste your main wallet's private key or connect its extension to Dept
 12. [What was verified](#12-what-was-verified)
 13. [Limits and key protection](#13-limits-and-key-protection)
 14. [For developers](#14-for-developers)
+
+## Local 0.3.1 safety update
+
+- **Closing a remainder:** after a partial fill, the bot retains its actual remaining quantity. A lot-aligned amount below the normal order minimum can be attempted only as an exact opposing close of the observed owned position, within the same price, depth participation and SDK capacity bounds. A changed position or open orders block signing. Off-step positions and insufficient depth still require attention; no rounding up or guaranteed exit. Ordinary target orders retain the market minimum.
+- **Gas headroom:** SDK order construction and estimation support at most 30 million gas. The chosen gas limit remains bounded by estimates, fee budgets, native reserve and closing reserve. Larger technical headroom does not increase the STT budget. Target plans also preserve the 1 STT native reserve before a send.
+- **Review before running:** new round plans reserve up to three closing order slots before opening. Their cumulative order ceiling is shown explicitly and stays at or below 600. The closing fee reserve is half the selected fee budget, capped at 0.3 STT, inside that budget; the untouched 1 STT remains separate. Setup/review checks whether the bot actually has enough for these reserves. Existing plans do not inherit new authority.
+- **Installer clarity:** the candidate Windows ZIP contains the local launcher/installer and its own manifest, without the separate GitHub bootstrap or stable-release checksum file. The source snapshot retains those stable references so their tests can run. Stop/reconcile and close an older app before installing a different version.
+
+A fresh Tokyo read-only contract simulation accepted an exact full residual close and rejected partial/increasing/off-step controls. Deterministic regressions exercise partial-close reconciliation and the new gas/reserve gates. These checks do not establish a new 0.3.1 live trade. Historical onchain evidence below remains attributed to 0.2.2.
 
 ## New in 0.3.0
 
@@ -231,7 +244,7 @@ For a **buy/sell target**, additionally review total target, amount per child or
 
 ![Actual installed 0.2.2 one-round test](docs/images/activity.jpg)
 
-Activity shows orders, completed rounds, cumulative limit notional, fees, decisions and transaction links. Expand **Technical details** for the saved event. **Show more activity** loads older entries of the current run. Prior run files remain on disk; this version has no past-run selector.
+Activity shows orders, completed rounds, cumulative limit notional, fees, decisions and transaction links. Expand **Technical details** for the saved event. **Show more activity** loads older entries of the current run. Use **History** to select earlier saved sessions and open their reports. Prior run files remain on disk.
 
 | Status | Meaning / next step |
 | --- | --- |
@@ -344,3 +357,7 @@ The official [dreamDEX Go CLI](https://github.com/somnia-chain/somnia-dex-cli) i
 | GitHub download bootstrap | `Install-DepthPilot.ps1` |
 
 Read [architecture](docs/architecture.md), [release packaging](docs/release.md), [troubleshooting](docs/troubleshooting.md) and [contributing](CONTRIBUTING.md) before changing signing or recovery. Application code is MIT; bundled components retain their notices/licenses.
+
+## X posts
+
+Publication is pending. The MVP requires 2–3 accurate posts tagging **@DreamDEXSomnia** and their actual URLs here. Local drafts are not published posts. No post link or current demo URL is claimed yet.

@@ -3,6 +3,7 @@ import { hidekiTestnet } from '@somnia-chain/markets-sdk/chains';
 import { createPublicClient, http, parseAbi, decodeFunctionData } from 'viem';
 import { delegatedOrder, assertDelegatedOrder, readOperatorPermissions } from './delegation.mjs';
 export const CHAIN_ID = 50383;
+export const MAX_ORDER_GAS = 30000000n;
 export const RPC = 'https://api.hideki2.infra.testnet.somnia.network';
 export const EXPLORER = 'https://explorer.testnet.somnia.network/tokyo';
 const bookAbi = parseAbi(['function getBookLevels(bool isBid,uint64 numLevels) view returns ((uint256 price,uint256 quantity)[])', 'function getOrderBookParameters() view returns (uint256,uint256,uint256)']);
@@ -52,7 +53,7 @@ export class Gateway {
   async unsigned(plan, child) {
     const executor = { chainId: CHAIN_ID, actor: plan.account, execute: async () => { throw new Error('Build-only executor cannot sign'); } };
     const trader = this.sdk.client.createTrader({ executor });
-    const { order } = await trader.buildPlacePerpOrder({ pool: plan.market.poolAddress, isBid: plan.side === 'buy', price: BigInt(child.price), quantity: BigInt(child.quantity), orderType: 2, expireTimestampNs: BigInt(Math.floor(plan.deadline / 1000)) * 1000000000n, gas: 10000000n });
+    const { order } = await trader.buildPlacePerpOrder({ pool: plan.market.poolAddress, isBid: plan.side === 'buy', price: BigInt(child.price), quantity: BigInt(child.quantity), orderType: 2, expireTimestampNs: BigInt(Math.floor(plan.deadline / 1000)) * 1000000000n, gas: MAX_ORDER_GAS });
     const decoded = decodeFunctionData({ abi: orderAbi, data: order.data });
     const [isBid, , price, quantity, expiry, orderType] = decoded.args;
     if (order.chainId !== CHAIN_ID || order.to.toLowerCase() !== plan.market.poolAddress.toLowerCase() || order.value !== 0n || isBid !== (plan.side === 'buy') || price !== BigInt(child.price) || quantity !== BigInt(child.quantity) || orderType !== 2 || expiry > BigInt(plan.deadline) * 1000000n) throw new Error('Unsigned SDK order failed invariant checks');
@@ -60,23 +61,24 @@ export class Gateway {
     return plan.operator?delegatedOrder(plan,order):order;
   }
   async operatorPermissions(pool,owner,operator){return readOperatorPermissions(this.rpc,pool,owner,operator);}
-  async simulate(plan, order) {
-    await this.rpc.call({ account: plan.operator||plan.account, to: order.to, data: order.data, value: 0n, gas: 10000000n });
+  async simulate(plan, order, gasLimit = MAX_ORDER_GAS) {
+    await this.rpc.call({ account: plan.operator||plan.account, to: order.to, data: order.data, value: 0n, gas: gasLimit });
     return { ok: true, at: Date.now(), note: 'eth_call only; state may change before inclusion' };
   }
   async browserFees(plan, order) {
     if (await this.rpc.getChainId() !== CHAIN_ID) throw new Error('Wrong RPC chain for browser signing');
     const signer=plan.operator||plan.account;
     const [estimated, gasPrice, nonce, balance] = await Promise.all([
-      this.rpc.estimateGas({ account: signer, to: order.to, data: order.data, value: 0n, gas: 10000000n }),
+      this.rpc.estimateGas({ account: signer, to: order.to, data: order.data, value: 0n, gas: MAX_ORDER_GAS }),
       this.rpc.getGasPrice(),
       this.rpc.getTransactionCount({ address: signer, blockTag: 'pending' }),
       this.rpc.getBalance({ address: signer }),
     ]);
-    const gasLimit = (estimated * 120n + 99n) / 100n;
-    if (gasLimit > 10000000n) throw new Error('Estimated gas exceeds the browser testnet order limit');
+    if (estimated <= 0n || estimated > MAX_ORDER_GAS) throw new Error('Estimated gas exceeds the 30M Tokyo order limit');
+    const buffered = (estimated * 120n + 99n) / 100n;
+    const gasLimit = buffered < MAX_ORDER_GAS ? buffered : MAX_ORDER_GAS;
     if (balance < gasLimit * gasPrice) throw new Error('Add Tokyo STT to this browser wallet for network fees');
-    return { gasLimit: String(gasLimit), gasPrice: String(gasPrice), nonce };
+    return { gasLimit: String(gasLimit), gasPrice: String(gasPrice), balance: String(balance), nonce };
   }
   async verifyTransaction(plan, hash, expected, expectedNonce) {
     if(plan.operator)assertDelegatedOrder(plan,expected);

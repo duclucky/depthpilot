@@ -1,6 +1,6 @@
 import {randomUUID} from 'node:crypto';
 import {getAddress} from 'viem';
-import {parseExact} from './core.mjs';
+import {parseExact,formatExact} from './core.mjs';
 import {validateBotConfig} from './autopilot-policy.mjs';
 const amount=(value,name,max)=>{if(typeof value!=='string'||!/^\d+(\.\d+)?$/.test(value))throw Error(`Enter ${name} as a positive number.`);const n=parseExact(value,18);if(n<=0n||(max&&n>parseExact(max,18)))throw Error(`Check ${name}${max?`; maximum ${max}`:''}.`);return value;};
 const integer=(value,name,min,max)=>{const n=Number(value);if(!Number.isSafeInteger(n)||n<min||n>max)throw Error(`${name} must be between ${min} and ${max}.`);return n;};
@@ -15,7 +15,9 @@ export function normalizePlan(input,identity){
   const id=randomUUID();
   if(kind==='roundtrip'){
     const cycles=integer(input.cycles,'Number of rounds',1,300);
-    const config=validateBotConfig({runId:id,continuous:true,chainId:50383,account,operator,symbol:'ETH',durationSec:null,closeGraceSec:120,pollSec:5,entryIntervalSec:integer(input.intervalMinutes,'Time between entries',1,30)*60,holdSec:integer(input.holdSeconds,'Holding time',5,120),maxCycles:cycles,maxTransactions:cycles*2,quantity,maxNotional,maxGasSTT:maxGas,maxGasPriceGwei:'10',closeGasReserveSTT:'0.06',minNativeReserveSTT:'1',...guards,participationBps:2500,stopEquityDeclineUSDso:'0.25',minEntryEquityUSDso:'1.5'});
+    const halfBudget=parseExact(maxGas,18)/2n,maximumReserve=parseExact('0.3',18);
+    const closeGasReserveSTT=formatExact(halfBudget<maximumReserve?halfBudget:maximumReserve,18);
+    const config=validateBotConfig({runId:id,continuous:true,chainId:50383,account,operator,symbol:'ETH',durationSec:null,closeGraceSec:120,pollSec:5,entryIntervalSec:integer(input.intervalMinutes,'Time between entries',1,30)*60,holdSec:integer(input.holdSeconds,'Holding time',5,120),maxCycles:cycles,maxTransactions:Math.min(600,cycles*4),closeOrderSlots:3,quantity,maxNotional,maxGasSTT:maxGas,maxGasPriceGwei:'10',closeGasReserveSTT,minNativeReserveSTT:'1',...guards,participationBps:2500,stopEquityDeclineUSDso:'0.25',minEntryEquityUSDso:'1.5'});
     return {id,kind,config,maxGas,maxNotional,quantity};
   }
   const maxChild=amount(input.maxChild,'amount per order','0.004');
