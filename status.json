@@ -5,23 +5,23 @@
   "chainId": 50383,
   "source": "Reference operator; separate local deployment, not a new installer session",
   "mode": "live",
-  "generatedAt": 1793539280294,
-  "heartbeatAt": 1793539277970,
-  "observedAt": 1793539277679,
+  "generatedAt": 1793539582773,
+  "heartbeatAt": 1793539578912,
+  "observedAt": 1793539575804,
   "workerPresent": true,
   "status": "holding",
   "decision": {
-    "code": "holding",
-    "text": "Waiting for the holding interval or an exit trigger."
+    "code": "fresh-tight-book",
+    "text": "Market and entry rules were met."
   },
-  "cycles": 59,
+  "cycles": 60,
   "pending": null,
-  "positionETH": "0.004",
+  "positionETH": "0",
   "botOwnedPositionETH": "0.004",
-  "equityUSDso": "1.305188769754323718",
-  "botGasSTT": "7.44569739",
-  "gasUsedSTT": "1.0024215",
-  "limitNotionalUSDso": "1150.54556",
+  "equityUSDso": "1.308714702578917718",
+  "botGasSTT": "7.436554608",
+  "gasUsedSTT": "1.021475832",
+  "limitNotionalUSDso": "1168.65032",
   "limits": {
     "equityGuardsEnabled": false,
     "quantityETH": "0.004",
@@ -1597,331 +1597,35 @@
       "at": 1793539271342,
       "confirmedAt": 1793539271655,
       "blockNumber": "38859853"
+    },
+    {
+      "hash": "0x98da48cdc4c2f1ab678527b57a2798bc1812d2c5ef2973db2e70a0c4af70522c",
+      "action": "close",
+      "status": "success",
+      "source": "saved-live-receipt",
+      "requestedETH": "0.004",
+      "filledETH": "0.004",
+      "averageUSDso": "2263.3",
+      "gasSTT": "0.009142782",
+      "at": 1793539300209,
+      "confirmedAt": 1793539300514,
+      "blockNumber": "38860141"
+    },
+    {
+      "hash": "0x79a8f8477d4847688f6cd3f1254ab5272fdb33e32678bcbde5b18b943323827a",
+      "action": "open",
+      "status": "success",
+      "source": "saved-live-receipt",
+      "requestedETH": "0.004",
+      "filledETH": "0.004",
+      "averageUSDso": "2262.89",
+      "gasSTT": "0.00991155",
+      "at": 1793539578591,
+      "confirmedAt": 1793539578893,
+      "blockNumber": "38862924"
     }
   ],
   "decisions": [
-    {
-      "at": 1793538775519,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538781821,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538788758,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538795486,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538801868,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538808386,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538814669,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538820952,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538827229,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538833517,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538839812,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538846097,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538852821,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538859197,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538866139,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538872435,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538878719,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538885004,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538891298,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538897587,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538903874,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538910925,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538917601,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538923914,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538930294,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538936753,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538943045,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538949340,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538955638,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538961937,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538968570,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538974863,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538981579,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538987894,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793538994247,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539000524,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539006825,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539013104,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539019386,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539025652,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539031954,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539038240,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539044955,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539051264,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539057627,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793539063915,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
     {
       "at": 1793539070214,
       "action": "pause",
@@ -2019,8 +1723,330 @@
       "code": "holding",
       "text": "Waiting for the holding interval or an exit trigger.",
       "hash": null
+    },
+    {
+      "at": 1793539284243,
+      "action": "wait",
+      "code": "holding",
+      "text": "Waiting for the holding interval or an exit trigger.",
+      "hash": null
+    },
+    {
+      "at": 1793539290519,
+      "action": "wait",
+      "code": "holding",
+      "text": "Waiting for the holding interval or an exit trigger.",
+      "hash": null
+    },
+    {
+      "at": 1793539300526,
+      "action": "confirmed",
+      "code": "other",
+      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
+      "hash": "0x98da48cdc4c2f1ab678527b57a2798bc1812d2c5ef2973db2e70a0c4af70522c"
+    },
+    {
+      "at": 1793539306893,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539313204,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539319483,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539325765,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539332426,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539338828,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539345243,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539351948,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539358232,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539364520,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539371113,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539377420,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539383700,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539389993,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539396797,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539403067,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539409346,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539415616,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539421912,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539428261,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539434568,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539440847,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539447117,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539453906,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539460635,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539466987,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539473271,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539479584,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539485873,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539492169,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539498458,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539504738,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539511024,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539517825,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539524824,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539531097,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539537383,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539543713,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539549993,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539556286,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539562558,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539568921,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793539578908,
+      "action": "confirmed",
+      "code": "other",
+      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
+      "hash": "0x79a8f8477d4847688f6cd3f1254ab5272fdb33e32678bcbde5b18b943323827a"
     }
   ],
-  "totalDecisions": 3010,
+  "totalDecisions": 3056,
   "note": "Periodically published local observations and saved receipts. This is not continuous uptime proof, a fresh independent account audit or PnL. The site cannot sign or control the bot."
 }
