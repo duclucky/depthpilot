@@ -3,6 +3,8 @@ import {open,unlink} from 'node:fs/promises';import {join,dirname} from 'node:pa
 import {readJSON,writeJSON,initializeHome,isAlive,APP_VERSION} from './runtime.mjs';
 import {normalizePlan} from './plan-config.mjs';import {checkAccount} from './account-check.mjs';import {createPlan,parseExact,formatExact} from './core.mjs';
 import {botConfigDigest} from './bot-runner.mjs';import {executionDigest} from './execution-runner.mjs';import {readSegmentedLog} from './segmented-log.mjs';
+import {buildPlanInsight} from './plan-insight.mjs';
+import {diagnosePlan} from './plan-diagnosis.mjs';
 const exec=promisify(execFile),root=dirname(dirname(fileURLToPath(import.meta.url)));
 function checkPlanReserve(draft,account){
   if(draft.kind!=='roundtrip')return;
@@ -90,4 +92,22 @@ export class LocalService{
   }
   async stop(){const {run}=await this.snapshot();if(!run)throw Error('There is no plan to stop.');await writeJSON(this.path(`stop-${run.id}.json`),{requestedAt:Date.now()});if(!run.workerAlive&&!['stopped','halted','completed','expired','partial'].includes(run.state?.status))await this.launch(run.id);return {requested:true};}
   async activity(after=0,limit=100){const current=await readJSON(this.path('current.json'),null);if(!current)return {entries:[],nextCursor:0,total:0};try{return await readSegmentedLog(this.path('runs'),`activity-${current.id}-index.json`,after,limit);}catch(e){if(e.code==='ENOENT')return {entries:[],nextCursor:0,total:0};throw e;}}
+  async insight(){
+    const snapshot=await this.snapshot(),run=snapshot.run;if(!run)return buildPlanInsight({run});
+    const index=`activity-${run.id}-index.json`,directory=this.path('runs');
+    let entries=[],truncated=false;
+    try{const first=await readSegmentedLog(directory,index,0,1);const after=Math.max(0,first.total-200);const tail=await readSegmentedLog(directory,index,after,200);entries=tail.entries;truncated=after>0;}catch(e){if(e.code!=='ENOENT')throw e;}
+    const view=buildPlanInsight({run,entries,truncated});return {...view,runId:run.id};
+  }
+  async diagnosis(){
+    if(this.diagnosisFlight)return this.diagnosisFlight;
+    this.diagnosisFlight=(async()=>{
+      const snapshot=await this.snapshot(),id=snapshot.run?.id;
+      const [meta,authority,stop]=id?await Promise.all([readJSON(this.path(`runs/${id}.json`),null),readJSON(this.path(`authority-${id}.json`),null),readJSON(this.path(`stop-${id}.json`),null)]):[null,null,null];
+      const result=await diagnosePlan({snapshot,meta,authority,stop,gateway:this.gateway});
+      const latest=await this.snapshot();if(latest.run?.id!==id||latest.run?.state?.updatedAt!==snapshot.run?.state?.updatedAt){result.changedDuringCheck=true;result.title='The plan changed during this check';result.next='Check again for a more recent observation. No action was taken.';}
+      return result;
+    })();
+    try{return await this.diagnosisFlight;}finally{this.diagnosisFlight=null;}
+  }
 }

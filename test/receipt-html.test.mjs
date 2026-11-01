@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {receiptHTML} from '../src/receipt-html.mjs';
+const base=()=>({id:'session',version:'0.3.2',kind:'roundtrip',status:'stopped',liveProof:false,createdAt:0,updatedAt:100,ownedPositionETH:'0',limits:{quantity:'0.004',maxGasSTT:'0.12',maxNotionalUSDso:'40'},metrics:{buyQuantity:'0.002',sellQuantity:'0',gasSTT:'0.01',gasComplete:false,unresolvedOrders:1},transactions:[],note:'Saved receipts; not a fresh account check.'});
+test('portable HTML escapes display data and ignores arbitrary fields, supplied URLs and executable payloads',()=>{
+ const r=base();r.version='<img src=x onerror="alert(1)">';r.privateKey='secret-canary';r.authority={token:'authority-canary'};r.transactions=[{hash:'bad-hash',url:'javascript:alert(1)',side:'buy',status:'unconfirmed',requestedETH:'0.004',filledETH:'0'}];const html=receiptHTML(r,{exportedAt:123});assert.ok(html.includes('&lt;img'));assert.doesNotMatch(html,/<img|<script|javascript:|secret-canary|authority-canary|<form|<iframe/i);assert.match(html,/default-src 'none'/);assert.match(html,/Known gas/);assert.match(html,/Invalid or missing hash/);
+});
+test('partial/reverted/unconfirmed and remaining exposure stay explicit; only validated explorer links are emitted',()=>{
+ const r=base();r.pending='0x'+'a'.repeat(64);r.transactions=[{hash:r.pending,url:'https://evil.example/',side:'buy',status:'unconfirmed',requestedETH:'0.004',filledETH:'0',source:'unverified'}];let html=receiptHTML(r);assert.match(html,/unresolved transaction/i);assert.match(html,/unconfirmed/);assert.match(html,/LIVE PROOF NOT ESTABLISHED/);assert.match(html,/explorer\.testnet\.somnia\.network\/tokyo\/tx\//);assert.doesNotMatch(html,/evil\.example/);r.pending=null;r.kind='buy';html=receiptHTML(r);assert.match(html,/retain their resulting position/);assert.match(html,/No wallet addresses, keys/);
+});

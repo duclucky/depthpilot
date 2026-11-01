@@ -3,15 +3,16 @@ import {Gateway} from './gateway.mjs';import {LocalService} from './service.mjs'
 import {MarketLab} from './market-lab.mjs';
 import {SessionLibrary} from './session-library.mjs';
 import {planTemplate,readTemplate} from './plan-template.mjs';
+import {receiptHTML} from './receipt-html.mjs';
 export async function startServer({home=runtimeHome(),port=Number(process.env.PORT??4320),gateway=new Gateway(),recover=true,gasBridge}={}){
  await initializeHome(home);const release=await claimLock(join(home,'.data','server.lock'));
  const service=new LocalService(home,gateway,gasBridge);await service.initialize();
  const marketLab=new MarketLab(gateway),library=new SessionLibrary(home);
  const token=randomBytes(32).toString('hex'),instanceId=randomBytes(16).toString('hex'),homeId=createHash('sha256').update(home.toLowerCase()).digest('hex');
  const publicRoot=join(dirname(fileURLToPath(import.meta.url)),'..','public');let origin,queue=Promise.resolve();
- const staticFiles=new Map([['/',['index.html','text/html']],['/app.mjs',['app.mjs','text/javascript']],['/workbench.mjs',['workbench.mjs','text/javascript']],['/style.css',['style.css','text/css']]]);
+ const staticFiles=new Map([['/',['index.html','text/html']],['/app.mjs',['app.mjs','text/javascript']],['/workbench.mjs',['workbench.mjs','text/javascript']],['/insight.mjs',['insight.mjs','text/javascript']],['/style.css',['style.css','text/css']]]);
  const server=createServer(async(req,res)=>{
-  const respond=(status,data,type='application/json')=>{res.writeHead(status,{'Content-Type':type+'; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cross-Origin-Resource-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"});res.end(typeof data==='string'||Buffer.isBuffer(data)?data:JSON.stringify(data));};
+  const respond=(status,data,type='application/json',staticReport=false)=>{res.writeHead(status,{'Content-Type':type+'; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cross-Origin-Resource-Policy':'same-origin','Content-Security-Policy':staticReport?"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'":"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"});res.end(typeof data==='string'||Buffer.isBuffer(data)?data:JSON.stringify(data));};
   try{
    if(req.headers.host!==new URL(origin).host){respond(403,{error:'Open DepthPilot using its local shortcut.'});return;}
    const url=new URL(req.url,origin);
@@ -20,9 +21,12 @@ export async function startServer({home=runtimeHome(),port=Number(process.env.PO
     if(url.pathname==='/api/health'){respond(200,{app:'depthpilot',version:APP_VERSION,instanceId,homeId,pid:process.pid});return;}
     if(url.pathname==='/api/session'){respond(200,{token});return;}
     if(url.pathname==='/api/status'){respond(200,await service.snapshot());return;}
+    if(url.pathname==='/api/insight'){respond(200,await service.insight());return;}
+    if(url.pathname==='/api/diagnosis'){respond(200,await service.diagnosis());return;}
     if(url.pathname==='/api/market'){respond(200,await marketLab.inspect());return;}
     if(url.pathname==='/api/history'){respond(200,await library.list(Number(url.searchParams.get('offset')||0)));return;}
     if(url.pathname==='/api/report'){respond(200,await library.report(url.searchParams.get('id')));return;}
+    if(url.pathname==='/api/report.html'){respond(200,receiptHTML(await library.report(url.searchParams.get('id'))),'text/html',true);return;}
     if(url.pathname==='/api/history/template'){respond(200,await library.template(url.searchParams.get('id')));return;}
     if(url.pathname==='/api/history/activity'){respond(200,await library.activity(url.searchParams.get('id'),Number(url.searchParams.get('after')||0)));return;}
     if(url.pathname==='/api/gas'){const next=queue.catch(()=>{}).then(()=>service.gasBridge.status());queue=next;respond(200,await next);return;}

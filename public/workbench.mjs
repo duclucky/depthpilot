@@ -201,6 +201,13 @@ export function initializeWorkbench({api, busy, message, applySettings, friendly
     const lines = ['# DepthPilot session report', '', `Session: ${r.id}`, `Version: ${r.version}`, `Started: ${new Date(r.createdAt).toISOString()}`, `Saved: ${new Date(r.updatedAt).toISOString()}`, `Status: ${r.status}`, `Saved live receipts: ${r.liveProof ? 'yes' : 'not established'}`, '', `Bought: ${m.buyQuantity} ETH; average ${m.buyVWAP ?? 'unavailable'} USDso`, `Sold: ${m.sellQuantity} ETH; average ${m.sellVWAP ?? 'unavailable'} USDso`, `Known confirmed gas: ${m.gasSTT} STT; complete: ${m.gasComplete}`, `Unconfirmed orders: ${m.unresolvedOrders}`, `Pending hash: ${r.pending ?? 'none saved'}`, `Saved bot-owned position: ${r.ownedPositionETH ?? 'target plans retain their resulting position'}`, '', r.note, '', '## Transactions', '', '| Action | Result | Filled ETH | Requested ETH | Average USDso | Gas STT | Receipt |', '| --- | --- | --- | --- | --- | --- | --- |', ...r.transactions.map(t => `| ${t.side} | ${t.status} | ${t.filledETH} | ${t.requestedETH} | ${t.averagePrice ?? '—'} | ${t.gasSTT ?? (t.status === 'unconfirmed' ? 'unconfirmed' : 'not recorded')} | [${t.hash}](${t.url}) |`), '', 'This export excludes wallet addresses, keys, calldata and trading authority. Public hashes can reveal accounts on the explorer.'];
     download('depthpilot-report-' + r.id + '.md', lines.join('\n'), 'text/markdown');
   });
+  $('download-html-report').addEventListener('click', () => busy($('download-html-report'), async () => {
+    if (!report) return;
+    const id=report.id,response=await fetch('/api/report.html?id='+encodeURIComponent(id));
+    if(!response.ok)throw Error('The HTML report could not be prepared. Refresh this session and try again.');
+    download('depthpilot-report-'+id+'.html',await response.text(),'text/html');
+    message('HTML report saved. Open it directly in a browser, even offline. Public transaction links can reveal account activity.');
+  }));
   return {
     async route(name) {
       const epoch = ++historyEpoch;

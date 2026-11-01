@@ -11,3 +11,5 @@
 @media(max-width:650px){#session-report .section-heading{flex-direction:column;align-items:flex-start;gap:12px}}
 
 #report-title{font-size:clamp(23px,2.5vw,32px);line-height:1.2;letter-spacing:-.9px;margin:12px 0 18px}@media(max-width:360px){.report-metrics{grid-template-columns:1fr}}
+
+.insight-panel{border-top:8px solid var(--ink)}#insight-title{max-width:850px}#diagnosis-title{margin-top:24px}#diagnosis-issues li{margin-bottom:8px}#diagnosis-facts{margin-top:18px}@media(max-width:650px){#view-run .section-heading{flex-direction:column;align-items:flex-start;gap:12px}}

@@ -1,6 +1,6 @@
 # DepthPilot
 
-> **Source 0.3.1 / installer candidate:** improves owned residual closes and bounded gas headroom. The source is available on `main`; the verified 0.3.1 Windows ZIP has not been uploaded to GitHub Releases. Use its supplied local ZIP and **Open DepthPilot.bat** for candidate review. The download links and PowerShell block below install the current published **0.3.0** Windows release.
+> **Version 0.3.2:** understand saved decisions, check interruptions without resending, and export a standalone HTML receipt report. The Windows ZIP below is the exact locally tested package. Its embedded documentation and source ZIP are pre-publication snapshots; use this README for current download/install links.
 
 > **Version 0.3.0:** explore live market depth, understand the next order, revisit saved-session reports and reuse settings. Stop/reconcile and close an existing DepthPilot app before updating. Your profile stays in place; installing does not start a trading plan.
 
@@ -8,7 +8,7 @@
 
 DepthPilot runs on your Windows PC and trades **ETH perpetuals on Tokyo testnet** through the official dreamDEX SDK. Create a separate local bot, link its public address on dreamDEX, choose a plan, review the limits, and follow its activity in your browser.
 
-**Start here:** [Download Windows 0.3.0](https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip) · [Release and checksums](https://github.com/duclucky/depthpilot/releases/tag/v0.3.0) · [Official Link a Bot guide](https://app.dreamdex.io/docs/trading/common/link-a-bot)
+**Start here:** [Watch the reference operator](https://duclucky.github.io/depthpilot/) · [Download Windows 0.3.2](https://github.com/duclucky/depthpilot/releases/download/v0.3.2/DepthPilot-0.3.2-windows-x64.zip) · [Release and checksums](https://github.com/duclucky/depthpilot/releases/tag/v0.3.2) · [Official Link a Bot guide](https://app.dreamdex.io/docs/trading/common/link-a-bot)
 
 You do not paste your main wallet's private key or connect its extension to DepthPilot. Your main wallet stays on dreamDEX. DepthPilot creates a different signing key on your PC, protected by Windows, and uses the trading access you explicitly grant it.
 
@@ -32,6 +32,16 @@ You do not paste your main wallet's private key or connect its extension to Dept
 12. [What was verified](#12-what-was-verified)
 13. [Limits and key protection](#13-limits-and-key-protection)
 14. [For developers](#14-for-developers)
+
+## 0.3.2: understand, check and review
+
+In **Activity**, **Why this step?** explains the latest saved decision. It shows recorded values beside your rules, the age of the market observation separately from the last state save, remaining fee reservations and the earliest eligible check when known. Waiting time comes from a bounded tail of saved decisions; if the start is outside that window, it is labelled **at least**. This is evidence of recorded decisions, not proof of uninterrupted uptime or a promise of a fill.
+
+Choose **Check current state** when something needs review. It reads Tokyo account permissions, position, open orders, equity, bot gas and confirmed/pending transaction counts. For a saved pending intent, it attempts to verify the exact transaction receipt against the saved call and nonce. Missing receipts, unverifiable intent, changed exposure, network failure and missing local permission remain explicit. The screen never signs, resends, restores authority or restarts a plan. Reads time out rather than leaving the check waiting indefinitely; separately sampled results can still change afterward.
+
+In **History**, **Save HTML report** creates a static page you can open directly in a browser, even offline. It includes confirmed fills, recorded gas, reviewed limits and public transaction links. Missing gas, unresolved orders, partial fills and resulting exposure remain visible. Account addresses, keys, calldata and trading authority are excluded, but public hashes can reveal accounts on an explorer. This exported record is not independent fresh chain verification or PnL. **Export Markdown** and **Export settings** remain available.
+
+This increment changes observation and report workflows. It introduces no trading strategy, resume action, dependency or Reactivity connection. Keep the existing distinction between stopped local authority and the separate Link a Bot grant on dreamDEX.
 
 ## Local 0.3.1 safety update
 
@@ -62,6 +72,14 @@ In **Create a plan**, choose **One small round** as an editable test starting po
 
 Version 0.3.0 retains the extension-free Link a Bot setup and the hidden Windows launcher. It adds no dependencies, changes no signing/reconciliation logic, starts no plan on installation, and includes no author's profile/history. The original 0.2.2 live evidence below remains historical evidence; it is not a new 0.3.0 live trading test.
 
+## Public reference dashboard
+
+[Watch the reference operator](https://duclucky.github.io/depthpilot/) before downloading. The public site is a read-only product page and periodically refreshed bot snapshot; it cannot connect a wallet, sign, start or stop trading. It shows actual recorded receipts, decision reasons, exposure and cumulative limits from a separate Tokyo reference deployment. This is not a new run of the 0.3.2 installer, a PnL leaderboard or proof of uninterrupted 24-hour uptime.
+
+The reference operator can remain online while new entries are paused by its original equity or quota rules. A lack of new orders is shown as a pause, not hidden or converted into simulated activity. Publishing occurs about every five minutes through the public `telemetry` branch; raw-file caches can add delay. The page shows the observation and publication times and marks stale/unavailable snapshots.
+
+Only allowlisted public summary fields and receipt links are exported. No primary/operator key, calldata, signed transaction, trading authority, local path or control endpoint is published. The local publisher uses the operator host's existing Git authentication; that credential is never sent to the website. Source for the projection/publisher is in `monitor/`; it reads the legacy reference monitor format, not arbitrary installer profiles. Public snapshots retain at most 60 recent decisions and the bounded run's transaction list; the full local journal stays local.
+
 ## 1. What the bot does
 
 | Plan | What happens | What remains afterward |
@@ -88,13 +106,13 @@ You do **not** need administrator access, a system Node/npm installation, a clou
 
 ## 3. Install on Windows
 
-Choose **one** method. Both use the same tested 0.3.0 Windows package. For an update, stop/reconcile your current plan and use **Close local app** first.
+Choose **one** method. Both use the same tested 0.3.2 Windows package. For an update, stop/reconcile your current plan and use **Close local app** first.
 
 ### Option A — download and double-click
 
-1. Download [DepthPilot-0.3.0-windows-x64.zip](https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip). Choose this Windows asset, not GitHub's automatic “Source code” download.
+1. Download [DepthPilot-0.3.2-windows-x64.zip](https://github.com/duclucky/depthpilot/releases/download/v0.3.2/DepthPilot-0.3.2-windows-x64.zip). Choose this Windows asset, not GitHub's automatic “Source code” download.
 2. Extract the **whole folder** into a location you control. Do not run a file from inside the ZIP.
-3. Open the extracted `DepthPilot-0.3.0` folder.
+3. Open the extracted `DepthPilot-0.3.2` folder.
 4. Double-click **Open DepthPilot.bat**.
 5. Your browser opens the local dashboard automatically. A batch window may flash briefly; no terminal needs to remain open for the application.
 
@@ -107,12 +125,12 @@ Open **ordinary PowerShell as your normal Windows user**, copy this whole block,
 ```powershell
 & {
     $ErrorActionPreference = 'Stop'
-    $DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.3.0/DepthPilot-0.3.0-windows-x64.zip'
-    $DepthPilotSHA256 = '45b74ce087d703c3b6753a6dca846fbcd29dc30515fe83846f7834229ec67aef'
-    $DepthPilotFolder = Join-Path $env:LOCALAPPDATA ('DepthPilot\downloads\0.3.0-' + [Guid]::NewGuid().ToString('N'))
+    $DepthPilotURL = 'https://github.com/duclucky/depthpilot/releases/download/v0.3.2/DepthPilot-0.3.2-windows-x64.zip'
+    $DepthPilotSHA256 = 'e3f4d2a282705cccf91a50dc7132700c00e2ea44e93623cc36bb11e8bfcc1934'
+    $DepthPilotFolder = Join-Path $env:LOCALAPPDATA ('DepthPilot\downloads\0.3.2-' + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $DepthPilotFolder | Out-Null
     $DepthPilotZIP = Join-Path $DepthPilotFolder 'DepthPilot.zip'
-    Write-Host 'Downloading and checking DepthPilot 0.3.0...'
+    Write-Host 'Downloading and checking DepthPilot 0.3.2...'
     Invoke-WebRequest -UseBasicParsing -Uri $DepthPilotURL -OutFile $DepthPilotZIP
     $DepthPilotStream = [IO.File]::OpenRead($DepthPilotZIP)
     $DepthPilotHasher = [Security.Cryptography.SHA256]::Create()
@@ -121,7 +139,7 @@ Open **ordinary PowerShell as your normal Windows user**, copy this whole block,
     if ($DepthPilotActual -ne $DepthPilotSHA256) { throw 'SHA-256 check failed. Nothing was installed.' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [IO.Compression.ZipFile]::ExtractToDirectory($DepthPilotZIP, $DepthPilotFolder)
-    $DepthPilotApp = Join-Path $DepthPilotFolder 'DepthPilot-0.3.0'
+    $DepthPilotApp = Join-Path $DepthPilotFolder 'DepthPilot-0.3.2'
     & (Join-Path $DepthPilotApp 'runtime\node.exe') (Join-Path $DepthPilotApp 'scripts\install.mjs')
     if ($LASTEXITCODE -ne 0) { throw 'Installation did not finish. Stop and close an existing DepthPilot app before trying again.' }
 }
@@ -132,7 +150,7 @@ The block runs the verified ZIP's installer. It does not download/evaluate a rem
 The expected Windows ZIP SHA-256 is:
 
 ```text
-45b74ce087d703c3b6753a6dca846fbcd29dc30515fe83846f7834229ec67aef
+e3f4d2a282705cccf91a50dc7132700c00e2ea44e93623cc36bb11e8bfcc1934
 ```
 
 This release is not code-signed. The hash verifies integrity against this project's published value; it does not substitute for trusting the project and release channel.
@@ -144,7 +162,7 @@ The app listens only on `127.0.0.1`. It tries port 4320, then chooses an availab
 | Location | Purpose |
 | --- | --- |
 | `%LOCALAPPDATA%\DepthPilot\app` | Persistent installation, stable batch launcher and version selector. |
-| `%LOCALAPPDATA%\DepthPilot\app\versions\0.3.0` | This version's app and bundled Node runtime. |
+| `%LOCALAPPDATA%\DepthPilot\app\versions\0.3.2` | This version's app and bundled Node runtime. |
 | `%LOCALAPPDATA%\DepthPilot\profiles\default` | Protected bot key, account, plans, counters and journal. **Keep private.** |
 | `%LOCALAPPDATA%\DepthPilot\downloads` | Downloads/extracted packages from the PowerShell method. |
 

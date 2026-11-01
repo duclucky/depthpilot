@@ -1,6 +1,8 @@
 import {initializeWorkbench} from './workbench.mjs';
+import {initializeInsight} from './insight.mjs';
 const $=id=>document.getElementById(id),text=(id,value)=>{$(id).textContent=value;};
 let workbench;
+let insight;
 let session,snapshot,review,gasReview,cursor=0,activityRun=null,total=0,refreshing=false,poll;
 const format=(raw,unit='',digits=5)=>{try{return `${(Number(BigInt(raw||'0'))/1e18).toLocaleString('en-US',{maximumFractionDigits:digits})}${unit?' '+unit:''}`;}catch{return '—';}};
 const short=s=>s?`${s.slice(0,8)}…${s.slice(-6)}`:'—';
@@ -77,7 +79,7 @@ $('plan-form').addEventListener('submit',e=>{e.preventDefault();busy($('review-b
 $('start-button').addEventListener('click',()=>busy($('start-button'),async()=>{if(!review)throw Error('Review your plan first.');if(!$('confirm-trading').checked)throw Error('Read the review and allow trading before starting.');await api('start',{reviewId:review.id,confirmed:true,recover:$('recover').checked});review=null;$('review').hidden=true;location.hash='run';await refresh();message('Your plan has started. You can follow every decision in Activity.');}));
 $('stop-button').addEventListener('click',()=>busy($('stop-button'),async()=>{await api('stop',{});message(snapshot.run?.kind==='finite'?'Stop requested. The bot will reconcile any pending order and stop placing new ones.':'Stop requested. No new entries; the bot will attempt to close its own position. Keep this PC on and follow Activity.');}));
 $('quit-button').addEventListener('click',()=>busy($('quit-button'),async()=>{await api('quit',{});clearInterval(poll);message('The local app has closed. Reopen DepthPilot using its shortcut whenever you want to return.');}));
-async function refresh(){snapshot=await api('status');render();}
+async function refresh(){snapshot=await api('status');render();await insight?.refresh(snapshot);}
 function appendActivity(entries){if(cursor===0)$('activity').replaceChildren();for(const event of entries){const li=document.createElement('li'),time=document.createElement('time'),title=document.createElement('strong');time.dateTime=new Date(event.at).toISOString();time.textContent=new Date(event.at).toLocaleString();title.textContent=friendly(event);li.append(time,title);if(/^0x[0-9a-fA-F]{64}$/.test(event.hash||'')){const a=document.createElement('a');a.href='https://explorer.testnet.somnia.network/tokyo/tx/'+event.hash;a.target='_blank';a.rel='noopener noreferrer';a.textContent='View transaction '+short(event.hash)+' ↗';li.append(a);}const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='Technical details';pre.textContent=JSON.stringify(event,null,2);details.append(summary,pre);li.append(details);$('activity').append(li);}}
 async function refreshActivity(){if(refreshing||!session)return;refreshing=true;try{await refresh();const run=snapshot.run?.id||null;if(run!==activityRun){activityRun=run;cursor=0;$('activity').replaceChildren();}const data=await api('activity?after='+cursor);appendActivity(data.entries);cursor=data.nextCursor;total=data.total;$('more-activity').hidden=cursor>=total;text('activity-count',total?`Showing ${cursor} of ${total} saved decisions.`:'No decisions yet.');}finally{refreshing=false;}}
 $('more-activity').addEventListener('click',()=>busy($('more-activity'),refreshActivity));$('refresh-activity').addEventListener('click',()=>busy($('refresh-activity'),refreshActivity));
@@ -91,5 +93,6 @@ function applySettings(settings){
  updateKind();location.hash='plan';
 }
 workbench=initializeWorkbench({api,busy,message,applySettings,friendly});
+insight=initializeInsight({api,busy,message});insight.bind();
 let ticks=0;
 try{session=(await api('session')).token;await refresh();updateKind();route();poll=setInterval(()=>{const p=location.hash==='#run'?refreshActivity():refresh();p.catch(()=>message('The local app could not be reached. Reopen DepthPilot using its shortcut.',true));if(++ticks%2===0)workbench.poll()?.catch(e=>message(e.message,true));},5000);}catch(e){message(e.message,true);}

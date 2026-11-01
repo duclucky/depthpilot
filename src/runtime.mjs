@@ -2,7 +2,7 @@ import {mkdir,readFile,open,unlink} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
 import {homedir} from 'node:os';
 import {atomicJSON} from './segmented-log.mjs';
-export const APP_VERSION='0.3.1';
+export const APP_VERSION='0.3.2';
 export function runtimeHome(){return resolve(process.env.DEPTHPILOT_HOME||join(process.env.LOCALAPPDATA||join(homedir(),'.local','share'),'DepthPilot','profiles','default'));}
 export async function initializeHome(home){for(const dir of ['.data','.data/runs','.data/plans','.wallet','logs'])await mkdir(join(home,dir),{recursive:true});}
 export async function readJSON(path,fallback){try{return JSON.parse((await readFile(path,'utf8')).replace(/^\uFEFF/,''));}catch(e){if(e.code==='ENOENT')return fallback;throw e;}}

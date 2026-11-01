@@ -1,6 +1,6 @@
 {
   "name": "depthpilot",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "type": "module",
   "description": "A local dreamDEX bot with simple setup, bounded plans and visible decisions",
