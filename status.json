@@ -5,23 +5,23 @@
   "chainId": 50383,
   "source": "Reference operator; separate local deployment, not a new installer session",
   "mode": "live",
-  "generatedAt": 1793564935400,
-  "heartbeatAt": 1793564931007,
-  "observedAt": 1793564930715,
+  "generatedAt": 1793565237859,
+  "heartbeatAt": 1793565236513,
+  "observedAt": 1793565236220,
   "workerPresent": true,
   "status": "observing",
   "decision": {
     "code": "entry-cooldown",
     "text": "Waiting between entry attempts."
   },
-  "cycles": 136,
+  "cycles": 137,
   "pending": null,
   "positionETH": "0",
   "botOwnedPositionETH": "0",
-  "equityUSDso": "1.187514702578917718",
-  "botGasSTT": "5.976086958",
-  "gasUsedSTT": "2.472031932",
-  "limitNotionalUSDso": "2535.46624",
+  "equityUSDso": "1.186594702578917718",
+  "botGasSTT": "5.956961274",
+  "gasUsedSTT": "2.491157616",
+  "limitNotionalUSDso": "2553.52408",
   "limits": {
     "equityGuardsEnabled": false,
     "quantityETH": "0.004",
@@ -3586,338 +3586,35 @@
       "at": 1793564886359,
       "confirmedAt": 1793564886679,
       "blockNumber": "39115932"
+    },
+    {
+      "hash": "0x75d2716ef2f0abf0a5594381a758d1ca7e359191707c2401868e0e0cff59829a",
+      "action": "open",
+      "status": "success",
+      "source": "saved-live-receipt",
+      "requestedETH": "0.004",
+      "filledETH": "0.004",
+      "averageUSDso": "2257.41",
+      "gasSTT": "0.009825738",
+      "at": 1793565162652,
+      "confirmedAt": 1793565162968,
+      "blockNumber": "39118694"
+    },
+    {
+      "hash": "0xfb05f5cb298d6ef78f7697e53bceca4b795276d3089d1adc1329839cf8608370",
+      "action": "close",
+      "status": "success",
+      "source": "saved-live-receipt",
+      "requestedETH": "0.004",
+      "filledETH": "0.004",
+      "averageUSDso": "2257.18",
+      "gasSTT": "0.009299946",
+      "at": 1793565191595,
+      "confirmedAt": 1793565191906,
+      "blockNumber": "39118984"
     }
   ],
   "decisions": [
-    {
-      "at": 1793564541039,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564551245,
-      "action": "confirmed",
-      "code": "other",
-      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
-      "hash": "0x0ccac16f653dca8e88e38dd6cbc14392ce8bc463dac2002bd072b176ea830f57"
-    },
-    {
-      "at": 1793564557521,
-      "action": "wait",
-      "code": "holding",
-      "text": "Waiting for the holding interval or an exit trigger.",
-      "hash": null
-    },
-    {
-      "at": 1793564563852,
-      "action": "wait",
-      "code": "holding",
-      "text": "Waiting for the holding interval or an exit trigger.",
-      "hash": null
-    },
-    {
-      "at": 1793564570143,
-      "action": "wait",
-      "code": "holding",
-      "text": "Waiting for the holding interval or an exit trigger.",
-      "hash": null
-    },
-    {
-      "at": 1793564580174,
-      "action": "confirmed",
-      "code": "other",
-      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
-      "hash": "0x4ac738f68105cba1dcfc3ee296a3b93dba63c31124f1244e9bb9acf01b6e5304"
-    },
-    {
-      "at": 1793564587416,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564593696,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564599979,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564606282,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564612568,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564618861,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564625191,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564632045,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564638335,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564644628,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564651307,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564657582,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564663850,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564670136,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564676423,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564682710,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564689051,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564695330,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564701650,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564707941,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564714676,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564721171,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564727450,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564733735,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564740020,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564746283,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564752606,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564758898,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564765175,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564771467,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564778154,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564784426,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564790696,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564796965,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564803231,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564809521,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564815858,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564822136,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564828411,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564834706,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
-    {
-      "at": 1793564841396,
-      "action": "wait",
-      "code": "entry-cooldown",
-      "text": "Waiting between entry attempts.",
-      "hash": null
-    },
     {
       "at": 1793564847693,
       "action": "wait",
@@ -4008,8 +3705,337 @@
       "code": "entry-cooldown",
       "text": "Waiting between entry attempts.",
       "hash": null
+    },
+    {
+      "at": 1793564937346,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564943644,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564949925,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564956190,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564962480,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564969211,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564975489,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564981785,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564988051,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793564994323,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565000863,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565007135,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565013422,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565019707,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565025969,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565032661,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565038961,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565045255,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565051529,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565057815,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565064106,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565070403,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565076696,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565082972,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565089256,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565095952,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565102232,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565108517,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565114798,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565121075,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565127398,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565133696,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565139982,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565146253,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565152536,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565162987,
+      "action": "confirmed",
+      "code": "other",
+      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
+      "hash": "0x75d2716ef2f0abf0a5594381a758d1ca7e359191707c2401868e0e0cff59829a"
+    },
+    {
+      "at": 1793565169274,
+      "action": "wait",
+      "code": "holding",
+      "text": "Waiting for the holding interval or an exit trigger.",
+      "hash": null
+    },
+    {
+      "at": 1793565175565,
+      "action": "wait",
+      "code": "holding",
+      "text": "Waiting for the holding interval or an exit trigger.",
+      "hash": null
+    },
+    {
+      "at": 1793565181834,
+      "action": "wait",
+      "code": "holding",
+      "text": "Waiting for the holding interval or an exit trigger.",
+      "hash": null
+    },
+    {
+      "at": 1793565191925,
+      "action": "confirmed",
+      "code": "other",
+      "text": "The runner recorded a step. Inspect confirmed receipts for execution evidence.",
+      "hash": "0xfb05f5cb298d6ef78f7697e53bceca4b795276d3089d1adc1329839cf8608370"
+    },
+    {
+      "at": 1793565198201,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565204475,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565210771,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565217141,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565223948,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565230224,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
+    },
+    {
+      "at": 1793565236507,
+      "action": "wait",
+      "code": "entry-cooldown",
+      "text": "Waiting between entry attempts.",
+      "hash": null
     }
   ],
-  "totalDecisions": 6542,
+  "totalDecisions": 6589,
   "note": "Periodically published local observations and saved receipts. This is not continuous uptime proof, a fresh independent account audit or PnL. The site cannot sign or control the bot."
 }
