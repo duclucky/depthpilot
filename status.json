@@ -5,9 +5,9 @@
   "chainId": 50383,
   "source": "Reference operator; separate local deployment, not a new installer session",
   "mode": "live",
-  "generatedAt": 1793537637888,
-  "heartbeatAt": 1793537633324,
-  "observedAt": 1793537633030,
+  "generatedAt": 1793537940417,
+  "heartbeatAt": 1793537940243,
+  "observedAt": 1793537939953,
   "workerPresent": true,
   "status": "paused",
   "decision": {
@@ -1587,342 +1587,6 @@
   ],
   "decisions": [
     {
-      "at": 1793537256693,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537262979,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537269939,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537276474,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537282769,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537289048,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537295443,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537301727,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537308013,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537314313,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537321131,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537327428,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537333839,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537340135,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537346719,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537353009,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537359293,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537366127,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537372563,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537378861,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537385544,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537391823,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537398637,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537405015,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537411291,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537417574,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537423858,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537430137,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537436564,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537442843,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537449620,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537455914,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537462260,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537468654,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537474951,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537481235,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537487493,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537493940,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537500225,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537506506,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537513199,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537519492,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537525809,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537532105,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537538377,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537544661,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537550942,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
-      "at": 1793537557228,
-      "action": "pause",
-      "code": "equity-guard",
-      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
-      "hash": null
-    },
-    {
       "at": 1793537563521,
       "action": "pause",
       "code": "equity-guard",
@@ -2005,8 +1669,344 @@
       "code": "equity-guard",
       "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
       "hash": null
+    },
+    {
+      "at": 1793537640034,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537646618,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537653026,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537659305,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537665873,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537672164,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537678519,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537684804,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537691136,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537697412,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537704140,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537710438,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537716759,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537723042,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537729315,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537735601,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537741889,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537748266,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537755132,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537761397,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537768082,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537774484,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537780835,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537787129,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537793425,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537799683,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537806376,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537812649,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537818933,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537825202,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537831882,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537838163,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537844486,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537850757,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537857027,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537863308,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537869866,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537876240,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537882616,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537888896,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537895627,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537901916,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537908239,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537914517,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537921346,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537927701,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537933965,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
+    },
+    {
+      "at": 1793537940238,
+      "action": "pause",
+      "code": "equity-guard",
+      "text": "An equity safety rule blocks new entries. An owned position is closed when possible.",
+      "hash": null
     }
   ],
-  "totalDecisions": 2772,
+  "totalDecisions": 2820,
   "note": "Periodically published local observations and saved receipts. This is not continuous uptime proof, a fresh independent account audit or PnL. The site cannot sign or control the bot."
 }
