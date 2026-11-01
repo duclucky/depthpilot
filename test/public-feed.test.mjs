@@ -1,6 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {buildPublicFeed} from '../monitor/public-feed.mjs';
 const config={chainId:50383,symbol:'ETH',quantity:'0.004',maxCycles:300,maxTransactions:600,maxNotional:'6000',maxGasSTT:'6',minNativeReserveSTT:'1',entryIntervalSec:300,holdSec:20,maxSpreadBps:5,slippageBps:10,stopEquityDeclineUSDso:'0.25',minEntryEquityUSDso:'1.5'};
 const hash='0x'+'a'.repeat(64),q='4000000000000000';
+test('public snapshot accurately reports an explicit equity guard opt-out',()=>{
+ assert.equal(buildPublicFeed({config,state:{}}).limits.equityGuardsEnabled,true);
+ assert.equal(buildPublicFeed({config:{...config,equityGuardsEnabled:false},state:{}}).limits.equityGuardsEnabled,false);
+});
 test('public feed explicitly projects real receipt data and excludes private objects, messages and signing fields',()=>{
  const state={mode:'live',status:'paused',cycles:59,updatedAt:100,lastDecision:{reason:'equity-guard'},latestObservation:{at:95,position:'0',equity:'1300000000000000000',gasBalance:'7000000000000000000',privateKey:'secret'},orders:[{hash,action:'close',quantity:q,notional:'9000000000000000000',unsigned:{data:'private-calldata'},receipt:{status:'success',source:'live',fills:[{quantity:q,price:'2250000000000000000000'}],gasCost:'9000000000000000',blockNumber:123}}],privateKey:'secret',authority:{token:'private'}};
  const feed=buildPublicFeed({config,state,entries:[{at:100,result:{action:'halt',reason:'SECRET PRIVATE ERROR'}}],workerPresent:true,now:101});assert.equal(feed.transactions[0].filledETH,'0.004');assert.equal(feed.transactions[0].averageUSDso,'2250');assert.equal(feed.gasUsedSTT,'0.009');assert.equal(feed.status,'paused');assert.equal(feed.decision.code,'equity-guard');assert.equal(feed.decisions[0].code,'other');assert.doesNotMatch(JSON.stringify(feed),/secret|privateKey|calldata|authority|token/i);
