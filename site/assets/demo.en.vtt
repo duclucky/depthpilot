@@ -1,0 +1,217 @@
+WEBVTT
+
+1
+00:00:00.449 --> 00:00:01.849
+You set the plan.
+
+2
+00:00:01.894 --> 00:00:07.084
+DepthPilot runs the steps, explains its decisions, and keeps the receipts.
+
+3
+00:00:07.129 --> 00:00:11.468
+A local trading bot for dreamDEX perpetuals on Tokyo testnet.
+
+4
+00:00:12.549 --> 00:00:15.124
+Start with the public reference dashboard.
+
+5
+00:00:15.169 --> 00:00:19.783
+See the current decision, recorded transactions, and resulting exposure.
+
+6
+00:00:19.828 --> 00:00:22.143
+Snapshots update periodically.
+
+7
+00:00:22.188 --> 00:00:26.427
+This reference operator is a separate deployment from the app you download.
+
+8
+00:00:27.516 --> 00:00:32.000
+Download the Windows package, or use the hash checked PowerShell installer.
+
+9
+00:00:32.045 --> 00:00:35.005
+Open DepthPilot launches your local dashboard.
+
+10
+00:00:35.050 --> 00:00:38.669
+The bundled runtime avoids a separate Node installation, and the console
+
+11
+00:00:38.714 --> 00:00:39.969
+stays hidden.
+
+12
+00:00:41.049 --> 00:00:44.329
+The app creates a separate bot address on your computer.
+
+13
+00:00:44.374 --> 00:00:48.023
+Use Link a Bot on dreamDEX to grant Perps access, then enter your
+
+14
+00:00:48.068 --> 00:00:49.518
+trading account.
+
+15
+00:00:49.563 --> 00:00:52.602
+Your main wallet's private key is never an input.
+
+16
+00:00:53.683 --> 00:00:56.532
+Explore live market depth before you trade.
+
+17
+00:00:56.577 --> 00:01:00.112
+Check spread, minimum size, and data freshness.
+
+18
+00:01:00.157 --> 00:01:03.346
+The planner uses visible liquidity and your price rules to size the
+
+19
+00:01:03.391 --> 00:01:04.691
+next order.
+
+20
+00:01:05.783 --> 00:01:09.817
+Choose a round plan, quantity, timing, and cumulative trading and fee
+
+21
+00:01:09.862 --> 00:01:10.967
+limits.
+
+22
+00:01:11.012 --> 00:01:12.912
+Review before activation.
+
+23
+00:01:12.957 --> 00:01:16.231
+Round plans attempt to open and close their own exposure.
+
+24
+00:01:16.276 --> 00:01:19.225
+Target plans retain their resulting position.
+
+25
+00:01:20.316 --> 00:01:23.616
+Activity explains the next step in plain language.
+
+26
+00:01:23.661 --> 00:01:27.315
+In this simulated example, the spread exceeds the reviewed rule, so
+
+27
+00:01:27.360 --> 00:01:28.700
+the bot waits.
+
+28
+00:01:28.745 --> 00:01:32.679
+Recorded values appear beside the limit, with observation age and remaining
+
+29
+00:01:32.724 --> 00:01:34.454
+fee reservations.
+
+30
+00:01:35.549 --> 00:01:39.189
+The reference bot selects entries, waits through its holding interval,
+
+31
+00:01:39.234 --> 00:01:41.483
+and attempts the close by itself.
+
+32
+00:01:41.528 --> 00:01:45.572
+This recorded round bought and sold zero point zero zero four ether.
+
+33
+00:01:45.617 --> 00:01:49.007
+Both receipts were independently verified on Tokyo.
+
+34
+00:01:50.149 --> 00:01:53.279
+Follow the transaction hash to the public explorer.
+
+35
+00:01:53.324 --> 00:01:55.884
+A submitted order is not a confirmed fill.
+
+36
+00:01:55.929 --> 00:01:59.663
+DepthPilot counts the actual quantities in its checked receipts, and
+
+37
+00:01:59.708 --> 00:02:02.602
+preserves unresolved or partial results.
+
+38
+00:02:03.683 --> 00:02:07.077
+If something needs attention, choose Check current state.
+
+39
+00:02:07.122 --> 00:02:12.631
+Inspect permissions, exposure, open orders, gas, and pending transactions.
+
+40
+00:02:12.676 --> 00:02:16.306
+The check does not sign, resend, or restart a plan.
+
+41
+00:02:16.351 --> 00:02:18.600
+Here, the account is flat.
+
+42
+00:02:19.683 --> 00:02:23.812
+History keeps recorded fills, fees, and receipt links.
+
+43
+00:02:23.857 --> 00:02:27.841
+Export a readable report, or reuse settings for another plan.
+
+44
+00:02:27.886 --> 00:02:31.900
+Reuse creates a new draft, without carrying trading permission.
+
+45
+00:02:31.945 --> 00:02:35.560
+This screen displays a completed, historical session.
+
+46
+00:02:36.683 --> 00:02:40.752
+The official dreamDEX Markets SDK powers market and account reads,
+
+47
+00:02:40.797 --> 00:02:43.686
+order construction, and receipt decoding.
+
+48
+00:02:43.731 --> 00:02:47.696
+DepthPilot adds depth aware planning, durable execution state, and
+
+49
+00:02:47.741 --> 00:02:50.915
+a dashboard that makes those decisions understandable.
+
+50
+00:02:52.016 --> 00:02:53.701
+Watch the reference run.
+
+51
+00:02:53.746 --> 00:02:57.185
+Download DepthPilot, and run your own reviewed plan.
+
+52
+00:02:57.230 --> 00:02:59.560
+Keep your computer awake and online.
+
+53
+00:02:59.605 --> 00:03:01.539
+This is a Tokyo testnet MVP.
+
+54
+00:03:01.584 --> 00:03:05.139
+Transaction counts and equity are not profit claims.

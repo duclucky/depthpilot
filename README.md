@@ -14,7 +14,7 @@ You do not paste your main wallet's private key or connect its extension to Dept
 
 ![DepthPilot live market workbench](docs/images/market-030.png)
 
-[Watch the 84-second 0.3.1 walkthrough](docs/demo-0.3.1.mp4): actual UI captures labelled as real Tokyo read-only data, synthetic setup with trading disabled, and historical 0.2.2 receipts. It is an edited captioned walkthrough, not a new live trading run.
+[Watch the three-minute 0.3.2 walkthrough](https://duclucky.github.io/depthpilot/#walkthrough): an edited, narrated tour of actual UI captures, historical receipts and a labelled simulated wait example. It is not a continuous live trading recording. The public website also provides [on-page ZIP and PowerShell installation](https://duclucky.github.io/depthpilot/#download), [illustrated setup](https://duclucky.github.io/depthpilot/#setup) and a [beginner FAQ](https://duclucky.github.io/depthpilot/#faq). The older [0.3.1 walkthrough](docs/demo-0.3.1.mp4) remains available.
 
 ## Contents
 
