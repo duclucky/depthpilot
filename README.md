@@ -335,6 +335,15 @@ This was a fresh DepthPilot profile under the same Windows user, with an already
 
 The 0.3.0 runtime and tested-source ZIPs are the unchanged, verified local candidate snapshots. This repository and the separately uploaded README/bootstrap add the final 0.3.0 publication instructions afterward. Use this page for the current download command. Inside the ZIP, use **Open DepthPilot.bat** or the local **install.ps1**. The extra **Install-DepthPilot.ps1** and checksum file embedded in that frozen snapshot refer to the older 0.2.2 GitHub download; use the current standalone release asset if you need the GitHub bootstrap.
 
+### Installed 0.3.1 autonomous execution evidence
+
+On October 31, 2026, the installed 0.3.1 application independently completed one reviewed ETH-PERP round on Tokyo. Both orders filled 0.004 ETH; the verified final position and open-order count were zero. Actual gas was 0.019380132 STT. No per-order manual transaction was used.
+
+- [Opening transaction](https://explorer.testnet.somnia.network/tokyo/tx/0x9a18e9af91c2a84ad57998953eb4b6807a20f5368cc70874650302503c1842f7).
+- [Closing transaction](https://explorer.testnet.somnia.network/tokyo/tx/0xce63a78dd0c44faa96e493062957b0030da24e996ff5887401be3802dfb353a2).
+
+This is historical execution evidence for 0.3.1, displayed in the 0.3.2 interface. It does not establish a new live run of the 0.3.2 installer, profitability or uninterrupted uptime. The public reference deployment is separate.
+
 ## 13. Limits and key protection
 
 - Windows x64, one default profile, Tokyo ETH-PERP for the supported trading flow.
@@ -378,4 +387,9 @@ Read [architecture](docs/architecture.md), [release packaging](docs/release.md),
 
 ## X posts
 
-Publication is pending. The MVP requires 2–3 accurate posts tagging **@DreamDEXSomnia** and their actual URLs here. Local drafts are not published posts. No post link or current demo URL is claimed yet.
+Two public posts by [@0xDucky1st](https://x.com/0xDucky1st), both tagging **@DreamDEXSomnia**:
+
+1. [Product introduction and launch visual, November 2, 2026](https://x.com/0xDucky1st/status/2117063932997447759).
+2. [Narrated product walkthrough with video, November 4, 2026](https://x.com/0xDucky1st/status/2117788961058017282).
+
+[Watch the full walkthrough](https://duclucky.github.io/depthpilot/#walkthrough) or [download Windows 0.3.2](https://github.com/duclucky/depthpilot/releases/tag/v0.3.2). The video is an edited tour with historical receipts and a labelled simulated wait example, not a continuous live trading recording.
